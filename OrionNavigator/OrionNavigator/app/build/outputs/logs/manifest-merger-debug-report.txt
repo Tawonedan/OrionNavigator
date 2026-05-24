@@ -1,0 +1,831 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:2:1-156:12
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:2:1-156:12
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:2:1-156:12
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:2:1-156:12
+MERGED from [androidx.databinding:viewbinding:8.2.2] C:\Users\axioo\.gradle\caches\transforms-3\83dde325ffb11c31f8b18cc64cd5737f\transformed\viewbinding-8.2.2\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\axioo\.gradle\caches\transforms-3\1a3b60a0c3fd707c121b63f144707a95\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\axioo\.gradle\caches\transforms-3\1ee7d76f72bb386c3520705afec6a99a\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.camera:camera-view:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\b85d648807efe796092a1c6ba2d94430\transformed\camera-view-1.2.3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\axioo\.gradle\caches\transforms-3\9df3aec529c2b68314bf134322ca5945\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\axioo\.gradle\caches\transforms-3\101ca8260b48b7ed90d2294559a98bc5\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:17:1-36:12
+MERGED from [androidx.camera:camera-lifecycle:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\66f23b30bbce3367aa0ecc4c53ae8c22\transformed\camera-lifecycle-1.2.3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:17:1-36:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\11f928f467f8d36785019c7b19f7e1e2\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\7c5a7c0f0b5270acbb2d2daff8348516\transformed\emoji2-views-helper-1.2.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:17:1-35:12
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\axioo\.gradle\caches\transforms-3\785f67f76d86cb99e724e63bdd533e35\transformed\play-services-location-21.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:2:1-18:12
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:15:1-38:12
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:2:1-17:12
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:17:1-75:12
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\axioo\.gradle\caches\transforms-3\e67245a5bd827cbea4cadd6836b562b7\transformed\firebase-appcheck-interop-17.1.0\AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\axioo\.gradle\caches\transforms-3\c201f543f2d391fa45897a9f7e22064a\transformed\firebase-database-collection-18.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\Users\axioo\.gradle\caches\transforms-3\833674ade39e3f7bd4d169f3f3c3d0c4\transformed\play-services-auth-api-phone-17.4.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:2:1-18:12
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\axioo\.gradle\caches\transforms-3\69e3a5d42c94c13a48af6a656950bb5b\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:15:1-41:12
+MERGED from [androidx.activity:activity-ktx:1.8.0] C:\Users\axioo\.gradle\caches\transforms-3\73742a83aed87bd9e01d90b09c6f0190\transformed\activity-ktx-1.8.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.8.0] C:\Users\axioo\.gradle\caches\transforms-3\6fcf4fb2564e6a9bcc719de45a13d9fc\transformed\activity-1.8.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\4dec79d73cae957b31ebf38599c4c69c\transformed\lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\557a4214dd47f9bd05aa793d9e473055\transformed\lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\9133601674503ae575f854d9bc68ff70\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\8d16f5d1d24e2878a11c2e5c1d997584\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\c5df5dd2f745472e1122eeedbecfcfaf\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\8f589b5ac57fb4e2eb9b85b14fdaf747\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\587bbd761727005a7dbde8b7c0132459\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\axioo\.gradle\caches\transforms-3\5a58e2b2d2ca47f08b2f302a208d82a0\transformed\savedstate-ktx-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\axioo\.gradle\caches\transforms-3\b51a641e09847ed0c8b5b0b3c162d32d\transformed\savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\958fc0e9a67287fb897f4c791524e4b9\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\183041b48d7186572aa92b73187a289d\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\c402b6001623ae339e7b95f8865ac335\transformed\lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\cf6f917499e1a945348c4a4ea042ce38\transformed\lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\b7c64829978aef30cf3ba05e1c2eed7c\transformed\integrity-1.1.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-tasks:18.0.2] C:\Users\axioo\.gradle\caches\transforms-3\bfd4b26f38d9b92884a7bb52e42107f8\transformed\play-services-tasks-18.0.2\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:16:1-26:12
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\axioo\.gradle\caches\transforms-3\45ffcd1dcf476d053b8a12dfc25c0d65\transformed\fragment-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\db9027b9104a87c5d19a67efdaefb8ee\transformed\drawerlayout-1.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d04cbe9f8462591ea45027cd45ee2964\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\496cd584d3c0c2b61d57332a5ce7fed5\transformed\transition-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\4f23d90fd878861c8c615057279799d2\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\5230412cf57255c83eb0045b3ef51d6e\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\2dc5b33e2b50c06f953321128ae422db\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\815a5446155620767118c1a09f5b9abb\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\66e170275c132bb0fb20fa27c3c7a11a\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.4.0] C:\Users\axioo\.gradle\caches\transforms-3\df37ce665e2bce480c46e0de37ce5e2d\transformed\browser-1.4.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.core:core-ktx:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\1cb81807c09c751d4009b22c8244ed54\transformed\core-ktx-1.12.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\95132af644268aa2d505082a9c0b5b86\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\489b42dfa61950851823191f8ca45c88\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\345cb4eeda97d7d85d64bd4cb8f59501\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.2] C:\Users\axioo\.gradle\caches\transforms-3\952cb1d668c01e79be7b420ee4ef0314\transformed\exifinterface-1.3.2\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\98bfa22d6b40066506d62f4ba5e4d09f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\axioo\.gradle\caches\transforms-3\fd5114febf2f8b7b136f6c97fb395e29\transformed\firebase-components-17.1.5\AndroidManifest.xml:15:1-20:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\c3c321de17f3afc63c7c93ff78a1405a\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\33a603f8262b1352ad657af91cc0ac64\transformed\tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\axioo\.gradle\caches\transforms-3\dccc79cdd02c00dda7d93a1184284ae2\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\d6a6f4ce529f1eb4c7bef0f8dbbaabc8\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\99fcf6f267ecec2f24a9d6eaad044680\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\f71526677588e64e235b9251603f6d15\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:2:1-27:12
+MERGED from [org.tensorflow:tensorflow-lite-support:0.4.4] C:\Users\axioo\.gradle\caches\transforms-3\3ed9b93f720cec93705c92bd3868f860\transformed\tensorflow-lite-support-0.4.4\AndroidManifest.xml:2:1-5:12
+MERGED from [org.tensorflow:tensorflow-lite:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\5338e344bfdfb04c069b905cf1e694ad\transformed\tensorflow-lite-2.14.0\AndroidManifest.xml:2:1-11:12
+MERGED from [org.tensorflow:tensorflow-lite-support-api:0.4.4] C:\Users\axioo\.gradle\caches\transforms-3\06e02c902df3567abd03d88ebcf1e4bf\transformed\tensorflow-lite-support-api-0.4.4\AndroidManifest.xml:2:1-5:12
+MERGED from [org.tensorflow:tensorflow-lite-api:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\a8c95b7cc649362e5f689ac6348c1e70\transformed\tensorflow-lite-api-2.14.0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\axioo\.gradle\caches\transforms-3\cf7074e24afa9cd9469fdd6ca70dfd62\transformed\image-1.0.0-beta1\AndroidManifest.xml:2:1-9:12
+	package
+		INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:6:5-68
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:6:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:7:5-74
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:7:22-71
+uses-permission#android.permission.BLUETOOTH_SCAN
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:8:5-73
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:8:22-70
+uses-permission#android.permission.BLUETOOTH_ADVERTISE
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:9:5-78
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:9:22-75
+uses-permission#android.permission.BLUETOOTH_CONNECT
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:10:5-76
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:10:22-73
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:13:5-79
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:13:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:14:5-81
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:14:22-78
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:15:5-85
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:15:22-82
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:18:5-67
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:25:5-67
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:25:5-67
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:7:5-67
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:18:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:19:5-79
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:8:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:19:22-76
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:22:5-77
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:22:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:23:5-94
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:23:22-91
+uses-permission#android.permission.FOREGROUND_SERVICE_LOCATION
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:24:5-86
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:24:22-83
+uses-permission#android.permission.CAMERA
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:26:5-65
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:26:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:29:5-71
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:29:22-68
+uses-permission#android.permission.VIBRATE
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:34:5-66
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:34:22-63
+uses-feature#android.hardware.bluetooth_le
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:37:5-91
+	android:required
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:37:64-88
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:37:19-63
+uses-feature#android.hardware.location.gps
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:38:5-91
+MERGED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:17:5-19:36
+MERGED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:17:5-19:36
+	android:required
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:38:64-88
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:38:19-63
+application
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:41:5-154:19
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:41:5-154:19
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\axioo\.gradle\caches\transforms-3\1a3b60a0c3fd707c121b63f144707a95\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\axioo\.gradle\caches\transforms-3\1a3b60a0c3fd707c121b63f144707a95\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\axioo\.gradle\caches\transforms-3\1ee7d76f72bb386c3520705afec6a99a\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\axioo\.gradle\caches\transforms-3\1ee7d76f72bb386c3520705afec6a99a\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:23:5-34:19
+MERGED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:23:5-34:19
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:23:5-34:19
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:23:5-34:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\axioo\.gradle\caches\transforms-3\785f67f76d86cb99e724e63bdd533e35\transformed\play-services-location-21.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\axioo\.gradle\caches\transforms-3\785f67f76d86cb99e724e63bdd533e35\transformed\play-services-location-21.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:25:5-36:19
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:25:5-36:19
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:7:5-15:19
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:7:5-15:19
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\axioo\.gradle\caches\transforms-3\e67245a5bd827cbea4cadd6836b562b7\transformed\firebase-appcheck-interop-17.1.0\AndroidManifest.xml:21:5-20
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\axioo\.gradle\caches\transforms-3\e67245a5bd827cbea4cadd6836b562b7\transformed\firebase-appcheck-interop-17.1.0\AndroidManifest.xml:21:5-20
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\axioo\.gradle\caches\transforms-3\69e3a5d42c94c13a48af6a656950bb5b\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\axioo\.gradle\caches\transforms-3\69e3a5d42c94c13a48af6a656950bb5b\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:22:5-39:19
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:22:5-39:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\b7c64829978aef30cf3ba05e1c2eed7c\transformed\integrity-1.1.0\AndroidManifest.xml:5:5-6:19
+MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\b7c64829978aef30cf3ba05e1c2eed7c\transformed\integrity-1.1.0\AndroidManifest.xml:5:5-6:19
+MERGED from [com.google.android.gms:play-services-tasks:18.0.2] C:\Users\axioo\.gradle\caches\transforms-3\bfd4b26f38d9b92884a7bb52e42107f8\transformed\play-services-tasks-18.0.2\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.2] C:\Users\axioo\.gradle\caches\transforms-3\bfd4b26f38d9b92884a7bb52e42107f8\transformed\play-services-tasks-18.0.2\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:20:5-24:19
+MERGED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\98bfa22d6b40066506d62f4ba5e4d09f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\98bfa22d6b40066506d62f4ba5e4d09f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [org.tensorflow:tensorflow-lite:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\5338e344bfdfb04c069b905cf1e694ad\transformed\tensorflow-lite-2.14.0\AndroidManifest.xml:9:5-20
+MERGED from [org.tensorflow:tensorflow-lite:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\5338e344bfdfb04c069b905cf1e694ad\transformed\tensorflow-lite-2.14.0\AndroidManifest.xml:9:5-20
+MERGED from [org.tensorflow:tensorflow-lite-api:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\a8c95b7cc649362e5f689ac6348c1e70\transformed\tensorflow-lite-api-2.14.0\AndroidManifest.xml:9:5-20
+MERGED from [org.tensorflow:tensorflow-lite-api:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\a8c95b7cc649362e5f689ac6348c1e70\transformed\tensorflow-lite-api-2.14.0\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\axioo\.gradle\caches\transforms-3\cf7074e24afa9cd9469fdd6ca70dfd62\transformed\image-1.0.0-beta1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\axioo\.gradle\caches\transforms-3\cf7074e24afa9cd9469fdd6ca70dfd62\transformed\image-1.0.0-beta1\AndroidManifest.xml:7:5-20
+	android:extractNativeLibs
+		INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:46:9-35
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:44:9-41
+	android:roundIcon
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:45:9-54
+	tools:targetApi
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:48:9-29
+	android:icon
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:43:9-43
+	android:allowBackup
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:42:9-35
+	android:theme
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:47:9-52
+activity#com.orion.app.ui.SplashActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:51:9-59:20
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:53:13-36
+	android:theme
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:54:13-63
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:52:13-46
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:55:13-58:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:56:17-69
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:56:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:57:17-77
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:57:27-74
+activity#com.orion.app.ui.RoleSelectionActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:62:9-65:51
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:65:13-48
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:64:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:63:13-53
+activity#com.orion.app.ui.TunanetraActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:68:9-71:48
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:71:13-45
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:70:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:69:13-49
+activity#com.orion.app.ui.PendampingActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:74:9-77:48
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:77:13-45
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:76:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:75:13-50
+activity#com.orion.app.ui.ModeSelectionActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:80:9-83:51
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:83:13-48
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:82:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:81:13-53
+activity#com.orion.app.ui.BeaconActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:86:9-89:51
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:89:13-48
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:88:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:87:13-46
+activity#com.orion.app.ui.LiveLocationChildActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:93:9-96:58
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:96:13-55
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:95:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:94:13-57
+activity#com.orion.app.ui.LiveLocationParentActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:98:9-101:58
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:101:13-55
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:100:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:99:13-58
+activity#com.orion.app.ui.CameraAIActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:105:9-109:52
+	android:screenOrientation
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:109:13-49
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:108:13-54
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:107:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:106:13-48
+activity#com.orion.app.ui.SafeZonesActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:112:9-115:50
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:115:13-47
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:114:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:113:13-49
+activity#com.orion.app.ui.DirectionActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:118:9-122:52
+	android:screenOrientation
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:122:13-49
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:121:13-44
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:120:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:119:13-49
+activity#com.orion.app.ui.CompassTestActivity
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:125:9-129:52
+	android:screenOrientation
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:129:13-49
+	android:label
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:128:13-41
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:127:13-37
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:126:13-51
+service#com.orion.app.service.BeaconScanService
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:132:9-136:63
+	android:enabled
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:134:13-35
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:135:13-37
+	android:foregroundServiceType
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:136:13-60
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:133:13-54
+service#com.orion.app.service.BeaconAdvertiseService
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:139:9-143:63
+	android:enabled
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:141:13-35
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:142:13-37
+	android:foregroundServiceType
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:143:13-60
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:140:13-59
+service#com.orion.app.service.LocationUpdateService
+ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:146:9-150:56
+	android:enabled
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:148:13-35
+	android:exported
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:149:13-37
+	android:foregroundServiceType
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:150:13-53
+	android:name
+		ADDED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml:147:13-58
+uses-sdk
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:8.2.2] C:\Users\axioo\.gradle\caches\transforms-3\83dde325ffb11c31f8b18cc64cd5737f\transformed\viewbinding-8.2.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:viewbinding:8.2.2] C:\Users\axioo\.gradle\caches\transforms-3\83dde325ffb11c31f8b18cc64cd5737f\transformed\viewbinding-8.2.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\axioo\.gradle\caches\transforms-3\1a3b60a0c3fd707c121b63f144707a95\transformed\material-1.11.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\axioo\.gradle\caches\transforms-3\1a3b60a0c3fd707c121b63f144707a95\transformed\material-1.11.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\axioo\.gradle\caches\transforms-3\1ee7d76f72bb386c3520705afec6a99a\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\axioo\.gradle\caches\transforms-3\1ee7d76f72bb386c3520705afec6a99a\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.camera:camera-view:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\b85d648807efe796092a1c6ba2d94430\transformed\camera-view-1.2.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.camera:camera-view:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\b85d648807efe796092a1c6ba2d94430\transformed\camera-view-1.2.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\axioo\.gradle\caches\transforms-3\9df3aec529c2b68314bf134322ca5945\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\axioo\.gradle\caches\transforms-3\9df3aec529c2b68314bf134322ca5945\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\axioo\.gradle\caches\transforms-3\101ca8260b48b7ed90d2294559a98bc5\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\axioo\.gradle\caches\transforms-3\101ca8260b48b7ed90d2294559a98bc5\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:21:5-44
+MERGED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:21:5-44
+MERGED from [androidx.camera:camera-lifecycle:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\66f23b30bbce3367aa0ecc4c53ae8c22\transformed\camera-lifecycle-1.2.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.camera:camera-lifecycle:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\66f23b30bbce3367aa0ecc4c53ae8c22\transformed\camera-lifecycle-1.2.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:21:5-44
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:21:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\11f928f467f8d36785019c7b19f7e1e2\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\11f928f467f8d36785019c7b19f7e1e2\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\7c5a7c0f0b5270acbb2d2daff8348516\transformed\emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\7c5a7c0f0b5270acbb2d2daff8348516\transformed\emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\axioo\.gradle\caches\transforms-3\785f67f76d86cb99e724e63bdd533e35\transformed\play-services-location-21.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\axioo\.gradle\caches\transforms-3\785f67f76d86cb99e724e63bdd533e35\transformed\play-services-location-21.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:21:5-23:64
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:21:5-23:64
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\axioo\.gradle\caches\transforms-3\e67245a5bd827cbea4cadd6836b562b7\transformed\firebase-appcheck-interop-17.1.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\axioo\.gradle\caches\transforms-3\e67245a5bd827cbea4cadd6836b562b7\transformed\firebase-appcheck-interop-17.1.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\axioo\.gradle\caches\transforms-3\c201f543f2d391fa45897a9f7e22064a\transformed\firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\axioo\.gradle\caches\transforms-3\c201f543f2d391fa45897a9f7e22064a\transformed\firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\Users\axioo\.gradle\caches\transforms-3\833674ade39e3f7bd4d169f3f3c3d0c4\transformed\play-services-auth-api-phone-17.4.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\Users\axioo\.gradle\caches\transforms-3\833674ade39e3f7bd4d169f3f3c3d0c4\transformed\play-services-auth-api-phone-17.4.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\axioo\.gradle\caches\transforms-3\69e3a5d42c94c13a48af6a656950bb5b\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\axioo\.gradle\caches\transforms-3\69e3a5d42c94c13a48af6a656950bb5b\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:19:5-44
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:19:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.0] C:\Users\axioo\.gradle\caches\transforms-3\73742a83aed87bd9e01d90b09c6f0190\transformed\activity-ktx-1.8.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.0] C:\Users\axioo\.gradle\caches\transforms-3\73742a83aed87bd9e01d90b09c6f0190\transformed\activity-ktx-1.8.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.8.0] C:\Users\axioo\.gradle\caches\transforms-3\6fcf4fb2564e6a9bcc719de45a13d9fc\transformed\activity-1.8.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.0] C:\Users\axioo\.gradle\caches\transforms-3\6fcf4fb2564e6a9bcc719de45a13d9fc\transformed\activity-1.8.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\4dec79d73cae957b31ebf38599c4c69c\transformed\lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\4dec79d73cae957b31ebf38599c4c69c\transformed\lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\557a4214dd47f9bd05aa793d9e473055\transformed\lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\557a4214dd47f9bd05aa793d9e473055\transformed\lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\9133601674503ae575f854d9bc68ff70\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\9133601674503ae575f854d9bc68ff70\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\8d16f5d1d24e2878a11c2e5c1d997584\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\8d16f5d1d24e2878a11c2e5c1d997584\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\c5df5dd2f745472e1122eeedbecfcfaf\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\c5df5dd2f745472e1122eeedbecfcfaf\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\8f589b5ac57fb4e2eb9b85b14fdaf747\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\8f589b5ac57fb4e2eb9b85b14fdaf747\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\587bbd761727005a7dbde8b7c0132459\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\587bbd761727005a7dbde8b7c0132459\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\axioo\.gradle\caches\transforms-3\5a58e2b2d2ca47f08b2f302a208d82a0\transformed\savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\axioo\.gradle\caches\transforms-3\5a58e2b2d2ca47f08b2f302a208d82a0\transformed\savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\axioo\.gradle\caches\transforms-3\b51a641e09847ed0c8b5b0b3c162d32d\transformed\savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\axioo\.gradle\caches\transforms-3\b51a641e09847ed0c8b5b0b3c162d32d\transformed\savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\958fc0e9a67287fb897f4c791524e4b9\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\958fc0e9a67287fb897f4c791524e4b9\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\183041b48d7186572aa92b73187a289d\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\183041b48d7186572aa92b73187a289d\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\c402b6001623ae339e7b95f8865ac335\transformed\lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\c402b6001623ae339e7b95f8865ac335\transformed\lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\cf6f917499e1a945348c4a4ea042ce38\transformed\lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\cf6f917499e1a945348c4a4ea042ce38\transformed\lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\axioo\.gradle\caches\transforms-3\417821ed66255882fc8e2bcd9072a209\transformed\recaptcha-18.1.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\b7c64829978aef30cf3ba05e1c2eed7c\transformed\integrity-1.1.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\b7c64829978aef30cf3ba05e1c2eed7c\transformed\integrity-1.1.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.0.2] C:\Users\axioo\.gradle\caches\transforms-3\bfd4b26f38d9b92884a7bb52e42107f8\transformed\play-services-tasks-18.0.2\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:18.0.2] C:\Users\axioo\.gradle\caches\transforms-3\bfd4b26f38d9b92884a7bb52e42107f8\transformed\play-services-tasks-18.0.2\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\axioo\.gradle\caches\transforms-3\45ffcd1dcf476d053b8a12dfc25c0d65\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\axioo\.gradle\caches\transforms-3\45ffcd1dcf476d053b8a12dfc25c0d65\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\db9027b9104a87c5d19a67efdaefb8ee\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\db9027b9104a87c5d19a67efdaefb8ee\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d04cbe9f8462591ea45027cd45ee2964\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d04cbe9f8462591ea45027cd45ee2964\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\496cd584d3c0c2b61d57332a5ce7fed5\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\496cd584d3c0c2b61d57332a5ce7fed5\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\4f23d90fd878861c8c615057279799d2\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\4f23d90fd878861c8c615057279799d2\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\5230412cf57255c83eb0045b3ef51d6e\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\5230412cf57255c83eb0045b3ef51d6e\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\2dc5b33e2b50c06f953321128ae422db\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\2dc5b33e2b50c06f953321128ae422db\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\815a5446155620767118c1a09f5b9abb\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\815a5446155620767118c1a09f5b9abb\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\66e170275c132bb0fb20fa27c3c7a11a\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\axioo\.gradle\caches\transforms-3\66e170275c132bb0fb20fa27c3c7a11a\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.4.0] C:\Users\axioo\.gradle\caches\transforms-3\df37ce665e2bce480c46e0de37ce5e2d\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.4.0] C:\Users\axioo\.gradle\caches\transforms-3\df37ce665e2bce480c46e0de37ce5e2d\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\1cb81807c09c751d4009b22c8244ed54\transformed\core-ktx-1.12.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\1cb81807c09c751d4009b22c8244ed54\transformed\core-ktx-1.12.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\95132af644268aa2d505082a9c0b5b86\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\95132af644268aa2d505082a9c0b5b86\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\489b42dfa61950851823191f8ca45c88\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\489b42dfa61950851823191f8ca45c88\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\345cb4eeda97d7d85d64bd4cb8f59501\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\345cb4eeda97d7d85d64bd4cb8f59501\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.3.2] C:\Users\axioo\.gradle\caches\transforms-3\952cb1d668c01e79be7b420ee4ef0314\transformed\exifinterface-1.3.2\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.2] C:\Users\axioo\.gradle\caches\transforms-3\952cb1d668c01e79be7b420ee4ef0314\transformed\exifinterface-1.3.2\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\98bfa22d6b40066506d62f4ba5e4d09f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\98bfa22d6b40066506d62f4ba5e4d09f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\axioo\.gradle\caches\transforms-3\fd5114febf2f8b7b136f6c97fb395e29\transformed\firebase-components-17.1.5\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\axioo\.gradle\caches\transforms-3\fd5114febf2f8b7b136f6c97fb395e29\transformed\firebase-components-17.1.5\AndroidManifest.xml:18:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\c3c321de17f3afc63c7c93ff78a1405a\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\c3c321de17f3afc63c7c93ff78a1405a\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\33a603f8262b1352ad657af91cc0ac64\transformed\tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\33a603f8262b1352ad657af91cc0ac64\transformed\tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\axioo\.gradle\caches\transforms-3\dccc79cdd02c00dda7d93a1184284ae2\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\axioo\.gradle\caches\transforms-3\dccc79cdd02c00dda7d93a1184284ae2\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\d6a6f4ce529f1eb4c7bef0f8dbbaabc8\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\d6a6f4ce529f1eb4c7bef0f8dbbaabc8\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\99fcf6f267ecec2f24a9d6eaad044680\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\99fcf6f267ecec2f24a9d6eaad044680\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\f71526677588e64e235b9251603f6d15\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\axioo\.gradle\caches\transforms-3\f71526677588e64e235b9251603f6d15\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:5:5-7:41
+MERGED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:5:5-7:41
+MERGED from [org.tensorflow:tensorflow-lite-support:0.4.4] C:\Users\axioo\.gradle\caches\transforms-3\3ed9b93f720cec93705c92bd3868f860\transformed\tensorflow-lite-support-0.4.4\AndroidManifest.xml:4:3-71
+MERGED from [org.tensorflow:tensorflow-lite-support:0.4.4] C:\Users\axioo\.gradle\caches\transforms-3\3ed9b93f720cec93705c92bd3868f860\transformed\tensorflow-lite-support-0.4.4\AndroidManifest.xml:4:3-71
+MERGED from [org.tensorflow:tensorflow-lite:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\5338e344bfdfb04c069b905cf1e694ad\transformed\tensorflow-lite-2.14.0\AndroidManifest.xml:6:5-7:38
+MERGED from [org.tensorflow:tensorflow-lite:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\5338e344bfdfb04c069b905cf1e694ad\transformed\tensorflow-lite-2.14.0\AndroidManifest.xml:6:5-7:38
+MERGED from [org.tensorflow:tensorflow-lite-support-api:0.4.4] C:\Users\axioo\.gradle\caches\transforms-3\06e02c902df3567abd03d88ebcf1e4bf\transformed\tensorflow-lite-support-api-0.4.4\AndroidManifest.xml:4:3-71
+MERGED from [org.tensorflow:tensorflow-lite-support-api:0.4.4] C:\Users\axioo\.gradle\caches\transforms-3\06e02c902df3567abd03d88ebcf1e4bf\transformed\tensorflow-lite-support-api-0.4.4\AndroidManifest.xml:4:3-71
+MERGED from [org.tensorflow:tensorflow-lite-api:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\a8c95b7cc649362e5f689ac6348c1e70\transformed\tensorflow-lite-api-2.14.0\AndroidManifest.xml:6:5-7:38
+MERGED from [org.tensorflow:tensorflow-lite-api:2.14.0] C:\Users\axioo\.gradle\caches\transforms-3\a8c95b7cc649362e5f689ac6348c1e70\transformed\tensorflow-lite-api-2.14.0\AndroidManifest.xml:6:5-7:38
+MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\axioo\.gradle\caches\transforms-3\cf7074e24afa9cd9469fdd6ca70dfd62\transformed\image-1.0.0-beta1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\axioo\.gradle\caches\transforms-3\cf7074e24afa9cd9469fdd6ca70dfd62\transformed\image-1.0.0-beta1\AndroidManifest.xml:5:5-44
+	tools:overrideLibrary
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:23:9-61
+	android:targetSdkVersion
+		INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\axioo\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\src\main\AndroidManifest.xml
+service#androidx.camera.core.impl.MetadataHolderService
+ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:24:9-33:19
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:29:9-33:78
+MERGED from [androidx.camera:camera-core:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\91fb0372a8e9b20aa9d7e0c062e22db1\transformed\camera-core-1.2.3\AndroidManifest.xml:29:9-33:78
+	tools:node
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:29:13-31
+	android:enabled
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:26:13-36
+	android:exported
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:27:13-37
+	tools:ignore
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:28:13-75
+	android:name
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:25:13-75
+meta-data#androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER
+ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:30:13-32:89
+	android:value
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:32:17-86
+	android:name
+		ADDED from [androidx.camera:camera-camera2:1.2.3] C:\Users\axioo\.gradle\caches\transforms-3\0b9e5d9e8492d7e38833c0d11722c4d8\transformed\camera-camera2-1.2.3\AndroidManifest.xml:31:17-103
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\axioo\.gradle\caches\transforms-3\7756cdbad96dce4cb74ba2bd1268618c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\axioo\.gradle\caches\transforms-3\43d9a133e22353c73c5c651760700df5\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:26:9-35:19
+MERGED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:26:9-35:19
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:8:9-14:19
+MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:8:9-14:19
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:66:9-72:19
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:66:9-72:19
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:30:9-38:19
+MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:30:9-38:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:11:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:34:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:32:13-43
+	android:name
+		ADDED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:10:13-84
+meta-data#com.google.firebase.components:com.google.firebase.database.ktx.FirebaseDatabaseLegacyRegistrar
+ADDED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:12:13-14:85
+	android:value
+		ADDED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:14:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-database-ktx:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\886ee847062d5127dd85d7cbfb22047b\transformed\firebase-database-ktx-20.3.0\AndroidManifest.xml:13:17-127
+meta-data#com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseKtxRegistrar
+ADDED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:29:13-31:85
+	android:value
+		ADDED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:31:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:30:17-120
+meta-data#com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar
+ADDED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-database:20.3.0] C:\Users\axioo\.gradle\caches\transforms-3\3bdac59ca22dc655010cb00cb846aa94\transformed\firebase-database-20.3.0\AndroidManifest.xml:33:17-109
+meta-data#com.google.firebase.components:com.google.firebase.auth.ktx.FirebaseAuthLegacyRegistrar
+ADDED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:11:13-13:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:13:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\c1cfb2d2dbe34b2fac78c337c238ccd5\transformed\firebase-auth-ktx-22.3.0\AndroidManifest.xml:12:17-119
+activity#com.google.firebase.auth.internal.GenericIdpActivity
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:29:9-46:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:31:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:33:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:32:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:34:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:30:13-80
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:genericidp
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:35:13-45:29
+action#android.intent.action.VIEW
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:36:25-66
+category#android.intent.category.DEFAULT
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:38:17-76
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:38:27-73
+category#android.intent.category.BROWSABLE
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:39:17-78
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:39:27-75
+data
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:41:17-44:51
+	android:path
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:43:21-37
+	android:host
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:42:21-49
+	android:scheme
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:44:21-48
+activity#com.google.firebase.auth.internal.RecaptchaActivity
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:47:9-64:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:49:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:51:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:50:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:52:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:48:13-79
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:recaptcha
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:53:13-63:29
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:69:13-71:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:71:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\axioo\.gradle\caches\transforms-3\8b3e5f201af27f958f7c69fe47964cbd\transformed\firebase-auth-22.3.0\AndroidManifest.xml:70:17-109
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\c27fd03672d40b6850462c1bdf725e1b\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+meta-data#com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar
+ADDED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:12:13-14:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:14:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\6637eb4bf62ee29232a9e0d078090eb0\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:13:17-116
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:25:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:27:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:26:13-43
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:28:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:24:13-77
+meta-data#com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar
+ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:35:13-37:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:37:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common:20.4.2] C:\Users\axioo\.gradle\caches\transforms-3\208c8618ea40b1b98b8b139b9fd4f464\transformed\firebase-common-20.4.2\AndroidManifest.xml:36:17-109
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\axioo\.gradle\caches\transforms-3\d5d853c2a0ed68117c7fbfdaa7138fca\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.1.0] C:\Users\axioo\.gradle\caches\transforms-3\d86529bc47ca0b469dc13c129482af3e\transformed\play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+permission#com.orion.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+uses-permission#com.orion.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.12.0] C:\Users\axioo\.gradle\caches\transforms-3\ffe08f026196a50ab79b7c43cdca026d\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\axioo\.gradle\caches\transforms-3\157e510605ff9ac999ad96ad7ff8dc45\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+supports-screens
+ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:9:5-12:40
+	android:largeScreens
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:11:9-36
+	android:normalScreens
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:12:9-37
+	android:anyDensity
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:10:9-34
+uses-feature#android.hardware.location.network
+ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:14:5-16:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:16:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:15:9-57
+uses-feature#android.hardware.telephony
+ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:20:5-22:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:22:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:21:9-50
+uses-feature#android.hardware.wifi
+ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:23:5-25:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:25:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:6.1.17] C:\Users\axioo\.gradle\caches\transforms-3\55f185edd149c85c387c22986179d201\transformed\osmdroid-android-6.1.17\AndroidManifest.xml:24:9-45

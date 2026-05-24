@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Orion Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- ========== SCREEN: HOME ========== -->
+        <div class="screen active" id="screen-home">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <div class="logo-icon">
+                        <span class="material-icons-round">explore</span>
+                    </div>
+                    <div>
+                        <h1 class="app-title">Orion <span class="accent">Admin Dashboard</span></h1>
+                        <p class="app-subtitle">Monitoring Navigasi YPAB</p>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <div class="live-badge">
+                        <span class="live-dot"></span> Live
+                    </div>
+                </div>
+            </header>
+
+            <div class="screen-content">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card" onclick="navigateTo('analytics')">
+                        <div class="summary-card-icon blue">
+                            <span class="material-icons-round">navigation</span>
+                        </div>
+                        <div class="summary-card-info">
+                            <span class="summary-label">Total Navigasi</span>
+                            <span class="summary-value" id="home-totalNav">0</span>
+                        </div>
+                        <span class="material-icons-round card-arrow">chevron_right</span>
+                    </div>
+                    <div class="summary-card" onclick="navigateTo('students')">
+                        <div class="summary-card-icon purple">
+                            <span class="material-icons-round">groups</span>
+                        </div>
+                        <div class="summary-card-info">
+                            <span class="summary-label">Siswa Aktif</span>
+                            <span class="summary-value" id="home-activeStudents">25</span>
+                        </div>
+                        <span class="material-icons-round card-arrow">chevron_right</span>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon cyan">
+                            <span class="material-icons-round">speed</span>
+                        </div>
+                        <div class="summary-card-info">
+                            <span class="summary-label">Avg Waktu Saat Ini</span>
+                            <span class="summary-value highlight" id="home-avgNow">0m 0s</span>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon green">
+                            <span class="material-icons-round">trending_up</span>
+                        </div>
+                        <div class="summary-card-info">
+                            <span class="summary-label">Peningkatan</span>
+                            <span class="summary-value success" id="home-improvement">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini Trend -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">show_chart</span> Tren Waktu Tempuh</h3>
+                        <span class="badge">49 Hari</span>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="homeTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Top Routes -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">route</span> Rute Terpopuler</h3>
+                        <button class="see-all-btn" onclick="navigateTo('analytics')">Lihat Semua <span class="material-icons-round">arrow_forward</span></button>
+                    </div>
+                    <div id="home-topRoutes" class="top-routes-list"></div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">history</span> Aktivitas Terbaru</h3>
+                        <button class="see-all-btn" onclick="navigateTo('logs')">Lihat Semua <span class="material-icons-round">arrow_forward</span></button>
+                    </div>
+                    <div id="home-recentLogs" class="recent-logs-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SCREEN: ANALYTICS ========== -->
+        <div class="screen" id="screen-analytics">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <h1 class="page-title">
+                        <span class="material-icons-round page-title-icon">analytics</span> Analitik
+                    </h1>
+                </div>
+            </header>
+
+            <div class="screen-content">
+                <!-- Stats Row -->
+                <div class="stats-row">
+                    <div class="mini-stat">
+                        <span class="mini-stat-label">Avg Awal (Feb)</span>
+                        <span class="mini-stat-value" id="analytics-avgFeb">0m</span>
+                    </div>
+                    <div class="mini-stat-divider"></div>
+                    <div class="mini-stat">
+                        <span class="mini-stat-label">Avg Sekarang (Apr)</span>
+                        <span class="mini-stat-value highlight" id="analytics-avgApr">0m</span>
+                    </div>
+                    <div class="mini-stat-divider"></div>
+                    <div class="mini-stat">
+                        <span class="mini-stat-label">Peningkatan</span>
+                        <span class="mini-stat-value success" id="analytics-improvement">0%</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">show_chart</span> Tren Rata-Rata Waktu Tempuh</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="analyticsTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">bar_chart</span> Perbandingan Bulanan</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="analyticsBarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">route</span> Rute Paling Sering (Top 5)</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="analyticsRouteChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SCREEN: STUDENTS ========== -->
+        <div class="screen" id="screen-students">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <h1 class="page-title">
+                        <span class="material-icons-round page-title-icon">groups</span> Siswa
+                    </h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="search-box">
+                        <span class="material-icons-round">search</span>
+                        <input type="text" id="studentSearch" placeholder="Cari siswa..." oninput="filterStudentList()">
+                    </div>
+                </div>
+            </header>
+
+            <div class="screen-content">
+                <div class="student-type-tabs">
+                    <button class="tab-btn active" onclick="filterByType('all', this)">Semua</button>
+                    <button class="tab-btn" onclick="filterByType('Total', this)">Total</button>
+                    <button class="tab-btn" onclick="filterByType('Low Vision', this)">Low Vision</button>
+                </div>
+                <div id="studentList" class="student-list"></div>
+            </div>
+        </div>
+
+        <!-- ========== SCREEN: STUDENT DETAIL ========== -->
+        <div class="screen" id="screen-student-detail">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="back-btn" onclick="navigateTo('students')">
+                        <span class="material-icons-round">arrow_back</span>
+                    </button>
+                    <h1 class="page-title" id="detail-title">Detail Siswa</h1>
+                </div>
+            </header>
+
+            <div class="screen-content">
+                <div class="detail-profile" id="detail-profile"></div>
+
+                <div class="stats-row">
+                    <div class="mini-stat">
+                        <span class="mini-stat-label">Total Trip</span>
+                        <span class="mini-stat-value" id="detail-totalTrips">0</span>
+                    </div>
+                    <div class="mini-stat-divider"></div>
+                    <div class="mini-stat">
+                        <span class="mini-stat-label">Avg Awal</span>
+                        <span class="mini-stat-value" id="detail-avgFeb">0m</span>
+                    </div>
+                    <div class="mini-stat-divider"></div>
+                    <div class="mini-stat">
+                        <span class="mini-stat-label">Avg Sekarang</span>
+                        <span class="mini-stat-value highlight" id="detail-avgApr">0m</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">show_chart</span> Perkembangan Waktu</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="detailTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">place</span> Rute Favorit</h3>
+                    </div>
+                    <div id="detail-routes" class="top-routes-list"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><span class="material-icons-round card-title-icon">list_alt</span> Log Terbaru</h3>
+                    </div>
+                    <div id="detail-logs" class="recent-logs-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SCREEN: LOGS ========== -->
+        <div class="screen" id="screen-logs">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <h1 class="page-title">
+                        <span class="material-icons-round page-title-icon">receipt_long</span> Log Navigasi
+                    </h1>
+                </div>
+                <div class="top-bar-right">
+                    <select id="logUserFilter" onchange="renderLogScreen()">
+                        <option value="all">Semua Siswa</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- Date Filter & Export Bar -->
+            <div class="log-date-filter-bar" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="date-filter-group">
+                        <span class="material-icons-round date-filter-icon">calendar_today</span>
+                        <input type="date" id="logDateFilter" onchange="renderLogScreen()" min="2026-02-27" max="2026-04-16" required>
+                    </div>
+                    <button class="date-clear-btn" id="dateClearBtn" onclick="clearDateFilter()" style="display: none;">
+                        <span class="material-icons-round">close</span> Reset
+                    </button>
+                    <span class="date-filter-label" id="dateFilterLabel">Semua Tanggal</span>
+                </div>
+                <a href="Orion_Navigation_Logs.xlsx" download class="export-excel-btn" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #00d2ff; color: #0a0a1a; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                    <span class="material-icons-round" style="font-size: 18px;">download</span> Export Excel
+                </a>
+            </div>
+
+            <div class="screen-content">
+                <div id="logList" class="log-list"></div>
+            </div>
+        </div>
+
+        <!-- ========== BOTTOM NAV ========== -->
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="nav-item active" data-screen="home" onclick="navigateTo('home')">
+                <span class="material-icons-round">home</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" data-screen="analytics" onclick="navigateTo('analytics')">
+                <span class="material-icons-round">analytics</span>
+                <span class="nav-label">Analitik</span>
+            </button>
+            <button class="nav-item" data-screen="students" onclick="navigateTo('students')">
+                <span class="material-icons-round">groups</span>
+                <span class="nav-label">Siswa</span>
+            </button>
+            <button class="nav-item" data-screen="logs" onclick="navigateTo('logs')">
+                <span class="material-icons-round">receipt_long</span>
+                <span class="nav-label">Log</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
