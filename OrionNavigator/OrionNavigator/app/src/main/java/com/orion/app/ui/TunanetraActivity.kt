@@ -163,7 +163,9 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             speakAndNavigate(
                 "Navigasi Kamera AR",
                 DirectionActivity::class.java
-            )
+            ) { intent ->
+                intent.putExtra("START_PAGE", 1) // PAGE_CAMERA
+            }
         }
         tvBeaconName?.text = "Mulai Navigasi Kamera AR"
         tvBeaconRssi?.text = "Deteksi lokasi & arah otomatis dengan AR Camera"
@@ -446,7 +448,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         vibrator?.vibrate(50)
     }
     
-    private fun speakAndNavigate(featureName: String, activityClass: Class<*>) {
+    private fun speakAndNavigate(featureName: String, activityClass: Class<*>, intentBlock: ((Intent) -> Unit)? = null) {
         if (ttsReady) {
             tts?.speak("Membuka $featureName", TextToSpeech.QUEUE_FLUSH, null, "navigate")
         }
@@ -454,6 +456,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         // Navigate after short delay for TTS
         android.os.Handler(mainLooper).postDelayed({
             val intent = Intent(this, activityClass)
+            intentBlock?.invoke(intent)
             startActivity(intent)
         }, 800)
     }

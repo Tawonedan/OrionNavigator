@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="Menunggu beacon..."
+                    android:text="Mencari lokasi AR..."
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF" />
@@ -317,7 +317,8 @@
             android:background="@drawable/bg_beacon_panel"
             android:orientation="vertical"
             android:paddingHorizontal="14dp"
-            android:paddingVertical="10dp">
+            android:paddingVertical="10dp"
+            android:visibility="gone">
 
             <!-- Header row -->
             <LinearLayout

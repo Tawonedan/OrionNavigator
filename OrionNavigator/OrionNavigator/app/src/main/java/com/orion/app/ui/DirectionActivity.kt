@@ -223,6 +223,52 @@ class DirectionActivity : AppCompatActivity(),
     private var camBtnStop: MaterialButton? = null
     private var camBtnDescribe: MaterialButton? = null
     private var camProgressDescribe: ProgressBar? = null
+
+    // ===== OG AR App Modes & Fields =====
+    var appMode: com.orion.app.ar.ui.AppMode = com.orion.app.ar.ui.AppMode.NAVIGATE
+    var markingType: com.orion.app.ar.waypoints.WaypointType = com.orion.app.ar.waypoints.WaypointType.ROOM
+    private var dropWaypointRequested = false
+    var nextWaypointId: String? = null
+    var arrivedAtDestination: Boolean = false
+    var navTurn: com.orion.app.ar.ui.NavTurn = com.orion.app.ar.ui.NavTurn.NONE
+    var viewportWidth: Int = 1
+    var viewportHeight: Int = 1
+
+    // Map/Navigate UI Controls
+    private var camBtnModeNav: MaterialButton? = null
+    private var camBtnModeMap: MaterialButton? = null
+    private var camLayoutMapControls: LinearLayout? = null
+    private var camLayoutNavigateControls: LinearLayout? = null
+    private var chipTypeRoom: MaterialButton? = null
+    private var chipTypeDoor: MaterialButton? = null
+    private var chipTypeHallway: MaterialButton? = null
+    private var chipTypeOther: MaterialButton? = null
+    private var camBtnMarkSpot: MaterialButton? = null
+    private var camBtnConnections: MaterialButton? = null
+    private var camBtnSavedMarkers: MaterialButton? = null
+    private var camBtnScanAgain: MaterialButton? = null
+    private var camCrosshairOverlay: View? = null
+    private var camCrosshairDot: View? = null
+    private var camLayoutManeuverBanner: LinearLayout? = null
+    private var camTvManeuverTurn: TextView? = null
+    private var camTvManeuverHint: TextView? = null
+
+    // 3D Rendering pipeline
+    private var pointCloudShader: com.orion.app.ar.samplerender.Shader? = null
+    private var pointCloudVertexBuffer: com.orion.app.ar.samplerender.VertexBuffer? = null
+    private var pointCloudMesh: com.orion.app.ar.samplerender.Mesh? = null
+    private var waypointMarkerMesh: com.orion.app.ar.samplerender.Mesh? = null
+    private var waypointMarkerShader: com.orion.app.ar.samplerender.Shader? = null
+    private var navSphereMesh: com.orion.app.ar.samplerender.Mesh? = null
+    private var navSphereShader: com.orion.app.ar.samplerender.Shader? = null
+    private var lastPointCloudTimestamp: Long = 0
+
+    private val projectionMatrix = FloatArray(16)
+    private val viewMatrix = FloatArray(16)
+    private val modelMatrix = FloatArray(16)
+    private val modelViewMatrix = FloatArray(16)
+    private val modelViewProjectionMatrix = FloatArray(16)
+
     private var isSyncingSpinner = false  // prevent infinite sync loops
     private var isSyncingToggle = false   // prevent infinite sync loops
 
@@ -320,14 +366,37 @@ class DirectionActivity : AppCompatActivity(),
         trackingStateHelper = TrackingStateHelper(this)
 
         arCoreSessionLifecycleHelper = ARCoreSessionLifecycleHelper(this)
+        arCoreSessionLifecycleHelper.exceptionCallback = { exception ->
+            val message = when (exception) {
+                is com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException ->
+                    "Please install Google Play Services for AR"
+                is com.google.ar.core.exceptions.UnavailableApkTooOldException -> "Please update ARCore"
+                is com.google.ar.core.exceptions.UnavailableSdkTooOldException -> "Please update this app"
+                is com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException -> "This device does not support AR"
+                is com.google.ar.core.exceptions.CameraNotAvailableException -> "Camera not available. Try restarting the app."
+                else -> "Failed to create AR session: $exception"
+            }
+            Log.e(TAG, "ARCore threw an exception", exception)
+            runOnUiThread { ttsManager.speak(message) }
+        }
         arCoreSessionLifecycleHelper.beforeSessionResume = { session ->
+            // Configure session matching indoor-nav-android reference
+            var cloudAnchors = false
             googleCloudBackend.configureArSession(object : ArSessionHooks {
                 override fun setCloudAnchorModeEnabled(enabled: Boolean) {
-                    val config = session.config
-                    config.cloudAnchorMode = if (enabled) com.google.ar.core.Config.CloudAnchorMode.ENABLED else com.google.ar.core.Config.CloudAnchorMode.DISABLED
-                    session.configure(config)
+                    cloudAnchors = enabled
                 }
             })
+            session.configure(
+                session.config.apply {
+                    lightEstimationMode = com.google.ar.core.Config.LightEstimationMode.AMBIENT_INTENSITY
+                    planeFindingMode = com.google.ar.core.Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
+                    depthMode = com.google.ar.core.Config.DepthMode.DISABLED
+                    instantPlacementMode = com.google.ar.core.Config.InstantPlacementMode.DISABLED
+                    cloudAnchorMode = if (cloudAnchors) com.google.ar.core.Config.CloudAnchorMode.ENABLED
+                        else com.google.ar.core.Config.CloudAnchorMode.DISABLED
+                }
+            )
         }
         arCoreSessionLifecycleHelper.afterSessionResume = { session ->
             googleCloudBackend.bindSession(session)
@@ -336,8 +405,11 @@ class DirectionActivity : AppCompatActivity(),
         lifecycle.addObserver(arCoreSessionLifecycleHelper)
     }
 
+    private var hasSetTextureNames = false
+
     private fun setupArGlSurfaceView(view: View) {
         arGlSurfaceView = view.findViewById(R.id.arGlSurfaceView)
+        arGlSurfaceView?.preserveEGLContextOnPause = true
         arGlSurfaceView?.let { glView ->
             arSampleRender = SampleRender(glView, object : SampleRender.Renderer {
                 override fun onSurfaceCreated(render: SampleRender) {
@@ -345,18 +417,46 @@ class DirectionActivity : AppCompatActivity(),
                         backgroundRenderer = BackgroundRenderer(render).apply {
                             setUseDepthVisualization(render, false)
                         }
+                        hasSetTextureNames = false
+
+                        pointCloudShader = com.orion.app.ar.samplerender.Shader.createFromAssets(
+                            render, "shaders/point_cloud.vert", "shaders/point_cloud.frag", null
+                        ).setVec4("u_Color", floatArrayOf(31f/255f, 188f/255f, 210f/255f, 1f)).setFloat("u_PointSize", 5.0f)
+                        pointCloudVertexBuffer = com.orion.app.ar.samplerender.VertexBuffer(render, 4, null)
+                        pointCloudMesh = com.orion.app.ar.samplerender.Mesh(render, com.orion.app.ar.samplerender.Mesh.PrimitiveMode.POINTS, null, arrayOf(pointCloudVertexBuffer))
+
+                        waypointMarkerMesh = com.orion.app.ar.samplerender.Mesh.createFromAsset(render, "models/pawn.obj")
+                        waypointMarkerShader = com.orion.app.ar.samplerender.Shader.createFromAssets(
+                            render, "shaders/waypoint_marker.vert", "shaders/waypoint_marker.frag", null
+                        ).setDepthTest(false).setDepthWrite(false)
+
+                        navSphereMesh = com.orion.app.ar.samplerender.Mesh.createFromAsset(render, "models/nav_sphere.obj")
+                        navSphereShader = com.orion.app.ar.samplerender.Shader.createFromAssets(
+                            render, "shaders/waypoint_marker.vert", "shaders/waypoint_marker.frag", null
+                        ).setDepthTest(false).setDepthWrite(false)
                     } catch (e: Exception) {
-                        Log.e(TAG, "Failed creating backgroundRenderer", e)
+                        Log.e(TAG, "Failed creating AR shaders/meshes", e)
                     }
                 }
 
                 override fun onSurfaceChanged(render: SampleRender, width: Int, height: Int) {
                     displayRotationHelper?.onSurfaceChanged(width, height)
+                    viewportWidth = width
+                    viewportHeight = height
                 }
 
                 override fun onDrawFrame(render: SampleRender) {
                     val session = arCoreSessionLifecycleHelper.session ?: return
                     val bgRenderer = backgroundRenderer ?: return
+
+                    // Pipe camera feed into GL texture — without this the screen is black
+                    if (!hasSetTextureNames) {
+                        session.setCameraTextureNames(
+                            intArrayOf(bgRenderer.cameraColorTexture.textureId)
+                        )
+                        hasSetTextureNames = true
+                    }
+
                     displayRotationHelper?.updateSessionIfNeeded(session)
 
                     try {
@@ -369,6 +469,9 @@ class DirectionActivity : AppCompatActivity(),
                             bgRenderer.drawBackground(render)
                         }
 
+                        val inMapMode = appMode == com.orion.app.ar.ui.AppMode.MAP
+                        val inNavigateMode = appMode == com.orion.app.ar.ui.AppMode.NAVIGATE
+
                         if (camera.trackingState == com.google.ar.core.TrackingState.TRACKING) {
                             val pose = camera.pose
                             val pose6Dof = com.orion.app.ar.backend.Pose6Dof(
@@ -377,12 +480,133 @@ class DirectionActivity : AppCompatActivity(),
                             )
                             navigationManager.onArPoseUpdated(pose6Dof)
                         }
+
+                        val centerX = viewportWidth * 0.5f
+                        val centerY = viewportHeight * 0.5f
+
+                        if (inMapMode && camera.trackingState == com.google.ar.core.TrackingState.TRACKING) {
+                            val placementHit = com.orion.app.ar.WaypointPlacementHelper.findPlacementHit(
+                                frame, camera, centerX, centerY, markingType
+                            )
+                            val canPlace = placementHit != null
+                            runOnUiThread {
+                                camCrosshairDot?.setBackgroundColor(if (canPlace) Color.parseColor("#00E676") else Color.parseColor("#FF9800"))
+                            }
+
+                            if (dropWaypointRequested) {
+                                dropWaypointRequested = false
+                                if (placementHit != null) {
+                                    showWaypointNamingDialog(com.orion.app.ar.WaypointPlacementHelper.poseForMarker(placementHit))
+                                } else {
+                                    runOnUiThread {
+                                        ttsManager.speak(com.orion.app.ar.WaypointPlacementHelper.hintForMiss(markingType))
+                                    }
+                                }
+                            }
+                        } else if (dropWaypointRequested) {
+                            dropWaypointRequested = false
+                        }
+
+                        camera.getProjectionMatrix(projectionMatrix, 0, 0.1f, 100f)
+                        camera.getViewMatrix(viewMatrix, 0)
+
+                        if (inMapMode) {
+                            try {
+                                frame.acquirePointCloud().use { pointCloud ->
+                                    if (pointCloud.timestamp > lastPointCloudTimestamp) {
+                                        pointCloudVertexBuffer?.set(pointCloud.points)
+                                        lastPointCloudTimestamp = pointCloud.timestamp
+                                    }
+                                    android.opengl.Matrix.multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
+                                    pointCloudShader?.setMat4("u_ModelViewProjection", modelViewProjectionMatrix)
+                                    pointCloudMesh?.let { mesh -> pointCloudShader?.let { shader -> render.draw(mesh, shader) } }
+                                }
+                            } catch (_: Exception) {}
+                        } else {
+                            try { frame.acquirePointCloud().close() } catch (_: Exception) {}
+                        }
+
+                        drawWaypointMarkers(render)
+                        if (inNavigateMode && camera.trackingState == com.google.ar.core.TrackingState.TRACKING) {
+                            drawPathSpheresTowardNext(render, camera)
+                        }
                     } catch (e: Exception) {
                         Log.e(TAG, "AR frame rendering error", e)
                     }
                 }
             }, assets)
         }
+    }
+
+    private fun drawWaypointMarkers(render: SampleRender) {
+        val waypoints = navigationManager.waypointRepo.waypoints
+        val mesh = waypointMarkerMesh ?: return
+        val shader = waypointMarkerShader ?: return
+
+        for (waypoint in waypoints) {
+            try {
+                val anchor = liveAnchors.get(waypoint.id) ?: continue
+                if (anchor.trackingState != com.google.ar.core.TrackingState.TRACKING) continue
+
+                anchor.pose.toMatrix(modelMatrix, 0)
+                android.opengl.Matrix.scaleM(modelMatrix, 0, 1.85f, 1.85f, 1.85f)
+
+                val color = when (waypoint.type) {
+                    com.orion.app.ar.waypoints.WaypointType.DOOR -> floatArrayOf(0.2f, 0.55f, 1.0f, 1.0f)
+                    com.orion.app.ar.waypoints.WaypointType.ROOM -> floatArrayOf(1.0f, 0.55f, 0.0f, 1.0f)
+                    com.orion.app.ar.waypoints.WaypointType.HALLWAY -> floatArrayOf(0.2f, 0.85f, 0.35f, 1.0f)
+                    com.orion.app.ar.waypoints.WaypointType.OTHER -> floatArrayOf(1.0f, 0.95f, 0.2f, 1.0f)
+                }
+                shader.setVec4("u_Color", color)
+                android.opengl.Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0)
+                android.opengl.Matrix.multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, modelViewMatrix, 0)
+                shader.setMat4("u_ModelViewProjection", modelViewProjectionMatrix)
+                render.draw(mesh, shader)
+            } catch (_: Exception) {}
+        }
+    }
+
+    private fun drawPathSpheresTowardNext(render: SampleRender, camera: com.google.ar.core.Camera) {
+        if (arrivedAtDestination || navTurn == com.orion.app.ar.ui.NavTurn.NONE || navTurn == com.orion.app.ar.ui.NavTurn.LOST) return
+        val targetId = nextWaypointId ?: return
+        val targetAnchor = liveAnchors.get(targetId) ?: return
+        if (targetAnchor.trackingState != com.google.ar.core.TrackingState.TRACKING) return
+
+        try {
+            val cameraPose = camera.pose
+            val target = targetAnchor.pose
+            val dx = target.tx() - cameraPose.tx()
+            val dz = target.tz() - cameraPose.tz()
+            val len = kotlin.math.sqrt(dx * dx + dz * dz)
+            if (len < 0.4f) return
+
+            val nx = dx / len
+            val nz = dz / len
+            val y = cameraPose.ty() - 0.35f
+            val maxDist = kotlin.math.min(len - 0.25f, 5.5f)
+            val color = floatArrayOf(0.1f, 0.95f, 1.0f, 1f)
+
+            var dist = 0.35f
+            while (dist <= maxDist) {
+                val pose = com.google.ar.core.Pose.makeTranslation(cameraPose.tx() + nx * dist, y, cameraPose.tz() + nz * dist)
+                drawGuideSphere(render, pose, color)
+                dist += 0.32f
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "drawPathSpheresTowardNext failed", e)
+        }
+    }
+
+    private fun drawGuideSphere(render: SampleRender, pose: com.google.ar.core.Pose, color: FloatArray) {
+        val mesh = navSphereMesh ?: return
+        val shader = navSphereShader ?: return
+        pose.toMatrix(modelMatrix, 0)
+        android.opengl.Matrix.scaleM(modelMatrix, 0, 0.32f, 0.32f, 0.32f)
+        shader.setVec4("u_Color", color)
+        android.opengl.Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0)
+        android.opengl.Matrix.multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, modelViewMatrix, 0)
+        shader.setMat4("u_ModelViewProjection", modelViewProjectionMatrix)
+        render.draw(mesh, shader)
     }
 
     private fun startArCloudResolveLoop(session: Session) {
@@ -423,7 +647,6 @@ class DirectionActivity : AppCompatActivity(),
     override fun onResume() {
         super.onResume()
         compassManager.start()
-        bleScanner.startScan()
         displayRotationHelper?.onResume()
         isArSessionActive = true
         if (isCameraActive && currentPage == PAGE_CAMERA) {
@@ -438,7 +661,6 @@ class DirectionActivity : AppCompatActivity(),
     override fun onPause() {
         super.onPause()
         compassManager.stop()
-        bleScanner.stopScan()
         displayRotationHelper?.onPause()
         isArSessionActive = false
         resolveLoopJob?.cancel()
@@ -497,10 +719,9 @@ class DirectionActivity : AppCompatActivity(),
             toggleWakeWord()
         }
         
+        val startPage = intent.getIntExtra("START_PAGE", PAGE_CAMERA)
         viewPager.adapter = NavigationPagerAdapter()
         viewPager.offscreenPageLimit = 1  // Keep both pages in memory
-        
-        updateDotIndicator(0)
         
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -521,6 +742,14 @@ class DirectionActivity : AppCompatActivity(),
                 }
             }
         })
+
+        viewPager.setCurrentItem(startPage, false)
+        currentPage = startPage
+        updateDotIndicator(startPage)
+        if (startPage == PAGE_CAMERA) {
+            checkCameraPermissionAndStart()
+            syncCameraPageState()
+        }
     }
     
     private fun updateDotIndicator(position: Int) {
@@ -620,8 +849,6 @@ class DirectionActivity : AppCompatActivity(),
         camDetectionOverlay = v.findViewById(R.id.camDetectionOverlay)
         camTvCurrentRoom = v.findViewById(R.id.camTvCurrentRoom)
         camSpinnerDestination = v.findViewById(R.id.camSpinnerDestination)
-        camLlStepCountingToggle = v.findViewById(R.id.camLlStepCountingToggle)
-        camSwitchStepCounting = v.findViewById(R.id.camSwitchStepCounting)
         camBtnStartNavigation = v.findViewById(R.id.camBtnStartNavigation)
         camNavInfoPanel = v.findViewById(R.id.camNavInfoPanel)
         camTvStepProgress = v.findViewById(R.id.camTvStepProgress)
@@ -636,6 +863,24 @@ class DirectionActivity : AppCompatActivity(),
         camBtnDescribe = v.findViewById(R.id.camBtnDescribe)
         camProgressDescribe = v.findViewById(R.id.camProgressDescribe)
         
+        camBtnModeNav = v.findViewById(R.id.camBtnModeNav)
+        camBtnModeMap = v.findViewById(R.id.camBtnModeMap)
+        camLayoutMapControls = v.findViewById(R.id.camLayoutMapControls)
+        camLayoutNavigateControls = v.findViewById(R.id.camLayoutNavigateControls)
+        chipTypeRoom = v.findViewById(R.id.chipTypeRoom)
+        chipTypeDoor = v.findViewById(R.id.chipTypeDoor)
+        chipTypeHallway = v.findViewById(R.id.chipTypeHallway)
+        chipTypeOther = v.findViewById(R.id.chipTypeOther)
+        camBtnMarkSpot = v.findViewById(R.id.camBtnMarkSpot)
+        camBtnConnections = v.findViewById(R.id.camBtnConnections)
+        camBtnSavedMarkers = v.findViewById(R.id.camBtnSavedMarkers)
+        camBtnScanAgain = v.findViewById(R.id.camBtnScanAgain)
+        camCrosshairOverlay = v.findViewById(R.id.camCrosshairOverlay)
+        camCrosshairDot = v.findViewById(R.id.camCrosshairDot)
+        camLayoutManeuverBanner = v.findViewById(R.id.camLayoutManeuverBanner)
+        camTvManeuverTurn = v.findViewById(R.id.camTvManeuverTurn)
+        camTvManeuverHint = v.findViewById(R.id.camTvManeuverHint)
+
         // Setup AR GL Surface View
         setupArGlSurfaceView(v)
 
@@ -691,40 +936,80 @@ class DirectionActivity : AppCompatActivity(),
         }
         
         updateUIState(false)
-    }
-    
-    private fun setupCamPageUI() {
-        // --- Destination Spinner (same data as nav page) ---
-        setupCamDestinationSpinner()
-        
-        // --- Step Counting Toggle (bidirectional sync) ---
-        camSwitchStepCounting?.isChecked = useStepCounting
-        camSwitchStepCounting?.setOnCheckedChangeListener { _, isChecked ->
-            if (isSyncingToggle) return@setOnCheckedChangeListener
-            useStepCounting = isChecked
-            navigationManager.useStepCounting = isChecked
-            // Sync nav page toggle
-            isSyncingToggle = true
-            navSwitchStepCounting?.isChecked = isChecked
-            isSyncingToggle = false
-            if (isChecked) {
-                ttsManager.speak("Mode hitung langkah diaktifkan. Tekan tombol setiap melangkah.")
-            } else {
-                ttsManager.speak("Mode hitung langkah dinonaktifkan.")
+    }    private fun setupCamPageUI() {
+        // Mode switchers
+        camBtnModeNav?.setOnClickListener {
+            provideHapticFeedback()
+            appMode = com.orion.app.ar.ui.AppMode.NAVIGATE
+            camBtnModeNav?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#CC1565C0")))
+            camBtnModeMap?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.TRANSPARENT))
+            camLayoutNavigateControls?.visibility = View.VISIBLE
+            camLayoutMapControls?.visibility = View.GONE
+            camCrosshairOverlay?.visibility = View.GONE
+            ttsManager.speak("Mode Navigasi AR aktif.")
+        }
+
+        camBtnModeMap?.setOnClickListener {
+            provideHapticFeedback()
+            appMode = com.orion.app.ar.ui.AppMode.MAP
+            camBtnModeMap?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#CC1565C0")))
+            camBtnModeNav?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.TRANSPARENT))
+            camLayoutMapControls?.visibility = View.VISIBLE
+            camCrosshairOverlay?.visibility = View.VISIBLE
+            camLayoutNavigateControls?.visibility = View.GONE
+            ttsManager.speak("Mode Buat Peta AR aktif. Arahkan HP ke lokasi lalu tekan Tandai Lokasi.")
+        }
+
+        fun updateChips(selectedType: com.orion.app.ar.waypoints.WaypointType) {
+            markingType = selectedType
+            chipTypeRoom?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(if (selectedType == com.orion.app.ar.waypoints.WaypointType.ROOM) Color.parseColor("#CC1565C0") else Color.parseColor("#20FFFFFF")))
+            chipTypeDoor?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(if (selectedType == com.orion.app.ar.waypoints.WaypointType.DOOR) Color.parseColor("#CC1565C0") else Color.parseColor("#20FFFFFF")))
+            chipTypeHallway?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(if (selectedType == com.orion.app.ar.waypoints.WaypointType.HALLWAY) Color.parseColor("#CC1565C0") else Color.parseColor("#20FFFFFF")))
+            chipTypeOther?.setBackgroundTintList(android.content.res.ColorStateList.valueOf(if (selectedType == com.orion.app.ar.waypoints.WaypointType.OTHER) Color.parseColor("#CC1565C0") else Color.parseColor("#20FFFFFF")))
+        }
+
+        chipTypeRoom?.setOnClickListener { updateChips(com.orion.app.ar.waypoints.WaypointType.ROOM) }
+        chipTypeDoor?.setOnClickListener { updateChips(com.orion.app.ar.waypoints.WaypointType.DOOR) }
+        chipTypeHallway?.setOnClickListener { updateChips(com.orion.app.ar.waypoints.WaypointType.HALLWAY) }
+        chipTypeOther?.setOnClickListener { updateChips(com.orion.app.ar.waypoints.WaypointType.OTHER) }
+
+        camBtnMarkSpot?.setOnClickListener {
+            provideHapticFeedback()
+            dropWaypointRequested = true
+        }
+
+        camBtnConnections?.setOnClickListener {
+            provideHapticFeedback()
+            showConnectionsDialog()
+        }
+
+        camBtnSavedMarkers?.setOnClickListener {
+            provideHapticFeedback()
+            showSavedMarkersDialog()
+        }
+
+        camBtnScanAgain?.setOnClickListener {
+            provideHapticFeedback()
+            arCoreSessionLifecycleHelper.session?.let { session ->
+                startArCloudResolveLoop(session)
+                ttsManager.speak("Memulai pindaian ulang AR Cloud Anchors...")
             }
         }
-        
+
+        // --- Destination Spinner (same data as nav page) ---
+        setupCamDestinationSpinner()
+
         // --- Start Navigation Button ---
         camBtnStartNavigation?.setOnClickListener {
             provideHapticFeedback()
             val selectedRoom = camSpinnerDestination?.selectedItem as? String
-            if (selectedRoom != null) {
+            if (selectedRoom != null && !selectedRoom.startsWith("Belum ada")) {
                 startNavigation()
             } else {
                 ttsManager.speak("Pilih tujuan terlebih dahulu")
             }
         }
-        
+
         // --- Action Button (confirm step / count step) ---
         camBtnAction?.setOnClickListener {
             provideHapticFeedback()
@@ -734,25 +1019,152 @@ class DirectionActivity : AppCompatActivity(),
                 navigationManager.confirmStepCompleted()
             }
         }
-        
-        // --- Stop Navigation Button ---
-        camBtnStop?.setOnClickListener {
-            provideHapticFeedback()
-            stopNavigation()
-        }
-        
+
         // --- Describe Scene Button ---
         camBtnDescribe?.setOnClickListener {
             provideHapticFeedback()
             describeCurrentScene()
         }
-        
+
         // Set initial state
         syncCameraPageState()
     }
-    
+
+    private fun showWaypointNamingDialog(pose: com.google.ar.core.Pose) {
+        runOnUiThread {
+            val input = android.widget.EditText(this).apply {
+                hint = when (markingType) {
+                    com.orion.app.ar.waypoints.WaypointType.DOOR -> "misal: Pintu Utama"
+                    com.orion.app.ar.waypoints.WaypointType.ROOM -> "misal: Ruang Dosen"
+                    com.orion.app.ar.waypoints.WaypointType.HALLWAY -> "misal: Koridor Utama"
+                    com.orion.app.ar.waypoints.WaypointType.OTHER -> "misal: Lobby"
+                }
+                setPadding(32, 24, 32, 24)
+                setTextColor(Color.WHITE)
+                setHintTextColor(Color.LTGRAY)
+            }
+
+            androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Nama ${markingType.label}")
+                .setMessage("Masukkan nama lokasi penanda ini:")
+                .setView(input)
+                .setPositiveButton("Simpan") { _, _ ->
+                    val name = input.text.toString().trim()
+                    if (name.isNotEmpty()) {
+                        saveWaypointAtPose(name, markingType, pose)
+                    }
+                }
+                .setNegativeButton("Batal", null)
+                .show()
+        }
+    }
+
+    private fun saveWaypointAtPose(name: String, type: com.orion.app.ar.waypoints.WaypointType, pose: com.google.ar.core.Pose) {
+        val session = arCoreSessionLifecycleHelper.session ?: return
+        lifecycleScope.launch(Dispatchers.IO) {
+            val anchor = session.createAnchor(pose)
+            val provId = java.util.UUID.randomUUID().toString()
+            val result = googleCloudBackend.hostAnchor(
+                com.orion.app.ar.backend.HostAnchorRequest(
+                    provisionalId = provId,
+                    localTrackingToken = com.orion.app.ar.core.ArCoreTrackingToken(session, anchor),
+                    displayName = name
+                )
+            )
+            val waypoint = com.orion.app.ar.waypoints.Waypoint(
+                id = provId,
+                name = name,
+                type = type,
+                backendAnchorId = if (result.success) result.backendAnchorId else null
+            )
+            navigationManager.waypointRepo.add(waypoint)
+            withContext(Dispatchers.Main) {
+                setupDestinationSpinner()
+                setupCamDestinationSpinner()
+                ttsManager.speak("Penanda $name tersimpan.")
+            }
+        }
+    }
+
+    private fun showConnectionsDialog() {
+        val waypoints = navigationManager.waypointRepo.waypoints
+        if (waypoints.size < 2) {
+            ttsManager.speak("Dibutuhkan minimal 2 penanda untuk membuat koneksi jalur.")
+            return
+        }
+        val names = waypoints.map { it.name }.toTypedArray()
+
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(32, 16, 32, 16)
+        }
+        val spinnerA = android.widget.Spinner(this).apply {
+            adapter = ArrayAdapter(this@DirectionActivity, android.R.layout.simple_spinner_dropdown_item, names)
+        }
+        val spinnerB = android.widget.Spinner(this).apply {
+            adapter = ArrayAdapter(this@DirectionActivity, android.R.layout.simple_spinner_dropdown_item, names)
+            setSelection(1)
+        }
+        layout.addView(TextView(this).apply { text = "Dari:"; setTextColor(Color.WHITE) })
+        layout.addView(spinnerA)
+        layout.addView(TextView(this).apply { text = "Ke:"; setTextColor(Color.WHITE); setPadding(0, 16, 0, 0) })
+        layout.addView(spinnerB)
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Koneksi Jalur Walkable")
+            .setView(layout)
+            .setPositiveButton("Hubungkan") { _, _ ->
+                val idA = waypoints[spinnerA.selectedItemPosition].id
+                val idB = waypoints[spinnerB.selectedItemPosition].id
+                if (idA != idB) {
+                    navigationManager.graphRepo.connect(idA, idB)
+                    ttsManager.speak("Koneksi tersimpan.")
+                }
+            }
+            .setNegativeButton("Batal", null)
+            .show()
+    }
+
+    private fun showSavedMarkersDialog() {
+        val waypoints = navigationManager.waypointRepo.waypoints
+        if (waypoints.isEmpty()) {
+            ttsManager.speak("Belum ada penanda tersimpan.")
+            return
+        }
+        val items = waypoints.map { "${it.name} (${it.type.label})" }.toTypedArray()
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Penanda Tersimpan (${waypoints.size})")
+            .setItems(items) { _, which ->
+                val wp = waypoints[which]
+                androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle("Hapus ${wp.name}?")
+                    .setPositiveButton("Hapus") { _, _ ->
+                        navigationManager.waypointRepo.remove(wp.id)
+                        setupDestinationSpinner()
+                        setupCamDestinationSpinner()
+                        ttsManager.speak("Penanda ${wp.name} telah dihapus.")
+                    }
+                    .setNegativeButton("Batal", null)
+                    .show()
+            }
+            .setNeutralButton("Hapus Semua") { _, _ ->
+                navigationManager.waypointRepo.clearAll()
+                setupDestinationSpinner()
+                setupCamDestinationSpinner()
+                ttsManager.speak("Semua penanda telah dihapus.")
+            }
+            .setPositiveButton("Tutup", null)
+            .show()
+    }
+
     private fun setupCamDestinationSpinner() {
-        val rooms = navigationManager.getAllRooms()
+        val waypoints = navigationManager.waypointRepo.waypoints
+        val rooms = if (waypoints.isEmpty()) {
+            listOf("Belum ada lokasi (Tambah di Mode Peta)")
+        } else {
+            waypoints.map { it.name }
+        }
         val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rooms) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
@@ -817,7 +1229,7 @@ class DirectionActivity : AppCompatActivity(),
                 // Update contentDescription Spinner agar TalkBack hanya baca nama lokasi
                 camSpinnerDestination?.contentDescription = selectedRoom
 
-                if (!isNavigating) {
+                if (!isNavigating && waypoints.isNotEmpty()) {
                     ttsManager.speak("Tujuan dipilih: $selectedRoom. Tekan tombol Mulai Navigasi untuk memulai.")
                 }
             }
@@ -832,7 +1244,12 @@ class DirectionActivity : AppCompatActivity(),
     }
 
     private fun setupDestinationSpinner() {
-        val rooms = navigationManager.getAllRooms()
+        val waypoints = navigationManager.waypointRepo.waypoints
+        val rooms = if (waypoints.isEmpty()) {
+            listOf("Belum ada lokasi (Tambah di Mode Peta)")
+        } else {
+            waypoints.map { it.name }
+        }
         val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rooms) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)

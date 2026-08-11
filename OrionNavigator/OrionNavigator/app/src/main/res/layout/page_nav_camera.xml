@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Lokasi: Menunggu beacon..."
+                android:text="Lokasi: Mencari AR..."
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
@@ -113,90 +113,263 @@
 
         </LinearLayout>
 
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="8dp"
-            android:background="#35FFFFFF"
-            android:importantForAccessibility="no" />
-
-        <!-- Destination Spinner row -->
+        <!-- Mode Selector: NAVIGASI vs PETA -->
         <LinearLayout
-            android:id="@+id/camLlDestination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:background="#20FFFFFF"
+            android:padding="3dp"
+            android:layout_marginVertical="4dp">
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_compass_arrow"
-                app:tint="#AAFFFFFF"
-                android:layout_marginEnd="6dp"
-                android:importantForAccessibility="no"
-                android:contentDescription="" />
-
-            <Spinner
-                android:id="@+id/camSpinnerDestination"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/camBtnModeNav"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_spinner_glass"
-                android:padding="6dp" />
+                android:text="NAVIGASI AR"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC1565C0"
+                app:cornerRadius="8dp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/camBtnModeMap"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="BUAT PETA AR"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#BBFFFFFF"
+                app:backgroundTint="#00000000"
+                app:cornerRadius="8dp" />
         </LinearLayout>
 
-        <!-- Step Counting Toggle -->
+        <!-- ================= MAP MODE CONTROLS ================= -->
         <LinearLayout
-            android:id="@+id/camLlStepCountingToggle"
+            android:id="@+id/camLayoutMapControls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hitung Langkah Manual"
-                android:textSize="12sp"
-                android:textColor="#CCFFFFFF"
-                android:importantForAccessibility="no" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/camSwitchStepCounting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
-                android:contentDescription="Aktifkan hitung langkah manual" />
+                android:text="Jenis Penanda:"
+                android:textSize="11sp"
+                android:textColor="#CCFFFFFF"
+                android:layout_marginTop="4dp" />
+
+            <!-- Category Chips -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginVertical="4dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/chipTypeRoom"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="Ruangan"
+                        android:textSize="11sp"
+                        android:textColor="#FFFFFF"
+                        app:strokeColor="#80FFFFFF"
+                        app:backgroundTint="#CC1565C0"
+                        android:layout_marginEnd="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/chipTypeDoor"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="Pintu"
+                        android:textSize="11sp"
+                        android:textColor="#CCFFFFFF"
+                        app:strokeColor="#40FFFFFF"
+                        app:backgroundTint="#20FFFFFF"
+                        android:layout_marginEnd="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/chipTypeHallway"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="Koridor"
+                        android:textSize="11sp"
+                        android:textColor="#CCFFFFFF"
+                        app:strokeColor="#40FFFFFF"
+                        app:backgroundTint="#20FFFFFF"
+                        android:layout_marginEnd="4dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/chipTypeOther"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="Lainnya"
+                        android:textSize="11sp"
+                        android:textColor="#CCFFFFFF"
+                        app:strokeColor="#40FFFFFF"
+                        app:backgroundTint="#20FFFFFF" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Mark Spot Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/camBtnMarkSpot"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="TANDAI LOKASI"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC2E7D32"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_navigation"
+                app:iconGravity="textStart" />
+
+            <!-- Action buttons row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/camBtnConnections"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Koneksi"
+                    android:textSize="11sp"
+                    android:textColor="#81D4FA" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/camBtnSavedMarkers"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Penanda"
+                    android:textSize="11sp"
+                    android:textColor="#81D4FA" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/camBtnScanAgain"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Pindai Ulang"
+                    android:textSize="11sp"
+                    android:textColor="#81D4FA" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Start Navigation Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/camBtnStartNavigation"
+        <!-- ================= NAVIGATE MODE CONTROLS ================= -->
+        <LinearLayout
+            android:id="@+id/camLayoutNavigateControls"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="8dp"
-            android:text="MULAI NAVIGASI"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:hapticFeedbackEnabled="true"
-            android:contentDescription="Tekan untuk memulai navigasi ke tujuan yang dipilih"
-            app:backgroundTint="#CC1565C0"
-            app:cornerRadius="14dp"
-            app:icon="@drawable/ic_navigation"
-            app:iconGravity="textStart"
-            app:iconSize="20dp"
-            app:iconTint="@color/white"
-            app:strokeColor="#55FFFFFF"
-            app:strokeWidth="1dp"
-            app:rippleColor="@color/ripple_color" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Destination Spinner row -->
+            <LinearLayout
+                android:id="@+id/camLlDestination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_compass_arrow"
+                    app:tint="#AAFFFFFF"
+                    android:layout_marginEnd="6dp"
+                    android:importantForAccessibility="no" />
+
+                <Spinner
+                    android:id="@+id/camSpinnerDestination"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner_glass"
+                    android:padding="6dp" />
+
+            </LinearLayout>
+
+            <!-- Maneuver Banner (Turn Cue & Distance) -->
+            <LinearLayout
+                android:id="@+id/camLayoutManeuverBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_glass_badge"
+                android:padding="8dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/camTvManeuverTurn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⬆ LURUS"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#80DEEA"
+                    android:paddingEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/camTvManeuverHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pilih tujuan untuk memulai navigasi AR"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- Start Navigation Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/camBtnStartNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:text="MULAI NAVIGASI"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:contentDescription="Tekan untuk memulai navigasi ke tujuan yang dipilih"
+                app:backgroundTint="#CC1565C0"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_navigation"
+                app:iconGravity="textStart"
+                app:iconSize="18dp"
+                app:iconTint="@color/white"
+                app:strokeColor="#55FFFFFF"
+                app:strokeWidth="1dp"
+                app:rippleColor="@color/ripple_color" />
+        </LinearLayout>
 
         <!-- Navigation Info Panel (visible during navigation) -->
         <LinearLayout
@@ -292,6 +465,29 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- ============================================================
+         LAYER 4.5: Target Crosshair Overlay (visible in Map mode)
+         ============================================================ -->
+    <FrameLayout
+        android:id="@+id/camCrosshairOverlay"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:importantForAccessibility="no">
+        <View
+            android:id="@+id/camCrosshairRing"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_status_active" />
+        <View
+            android:id="@+id/camCrosshairDot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:background="#00E676" />
+    </FrameLayout>
 
     <!-- ============================================================
          LAYER 5: Detected Object Name Badge — center of screen
