@@ -1,3 +1,0 @@
-com.orion.app.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme

@@ -1,6 +1,0 @@
-com.orion.app.test.app-core-1.5.0-0 C:\Users\siunu\.gradle\caches\transforms-3\07cc3d34d34b8a94d376f34664fd36a7\transformed\core-1.5.0\res
-com.orion.app.test.app-annotation-experimental-1.3.0-1 C:\Users\siunu\.gradle\caches\transforms-3\95132af644268aa2d505082a9c0b5b86\transformed\annotation-experimental-1.3.0\res
-com.orion.app.test.app-androidTest-2 C:\Users\siunu\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\build\generated\res\resValues\androidTest\debug
-com.orion.app.test.app-mergeDebugAndroidTestResources-3 C:\Users\siunu\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.orion.app.test.app-mergeDebugAndroidTestResources-4 C:\Users\siunu\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.orion.app.test.app-merged_res-5 C:\Users\siunu\Downloads\OrionNavigator\OrionNavigator\OrionNavigator\app\build\intermediates\merged_res\debugAndroidTest

@@ -7,6 +7,16 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+// Allow reading API Key from local.properties
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
+}
+val geminiApiKey = localProperties.getProperty("GEMINI_API_KEY") ?: ""
+val arcoreApiKey = (localProperties.getProperty("ARCORE_API_KEY") ?: "").trim()
+
+
 android {
     namespace = "com.orion.app"
     compileSdk = 34
@@ -19,6 +29,7 @@ android {
         versionName = "1.0.0-MVP"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders["ARCORE_API_KEY"] = arcoreApiKey
     }
 
     buildTypes {
@@ -79,6 +90,10 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:$camerax_version")
     implementation("androidx.camera:camera-view:$camerax_version")
     
+    // ARCore SDK & OBJ parser (from indoor-nav-android)
+    implementation("com.google.ar:core:1.54.0")
+    implementation("de.javagl:obj:0.4.0")
+    
     // TensorFlow Lite - for YOLOv8 object detection
     implementation("org.tensorflow:tensorflow-lite:2.14.0")
     implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
@@ -86,21 +101,11 @@ dependencies {
     // ViewPager2 - for swipeable navigation/camera pages
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     
-
-
-    
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
 
-// Allow reading API Key from local.properties
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localProperties.load(FileInputStream(localPropertiesFile))
-}
-val geminiApiKey = localProperties.getProperty("GEMINI_API_KEY") ?: ""
-
 android.defaultConfig.buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
+

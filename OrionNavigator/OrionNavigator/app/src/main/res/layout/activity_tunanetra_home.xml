@@ -151,7 +151,7 @@
         app:layout_constraintBottom_toTopOf="@id/guideHeaderBottom" />
 
     <!-- ============================================================
-         BEACON PANEL
+         AR NAVIGATION CAMERA PANEL / ACCESS BUTTON
          ============================================================ -->
     <LinearLayout
         android:id="@+id/cardBeaconPanel"
@@ -163,25 +163,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="Mulai Navigasi Kamera AR. Tekan untuk membuka tampilan kamera navigasi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideHeaderBottom"
         app:layout_constraintBottom_toTopOf="@id/guideBeaconBottom">
 
-        <!-- Row: icon + label + count -->
+        <!-- Header row: icon + label + badge -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="4dp"
             android:importantForAccessibility="no">
 
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/ic_beacon"
+                android:src="@drawable/ic_navigation"
                 android:contentDescription=""
                 android:importantForAccessibility="no"
                 app:tint="#FFFFFF"
@@ -191,9 +193,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Posisi Saat Ini"
+                android:text="MODUL KAMERA AR"
                 android:textColor="#CCFFFFFF"
                 android:textSize="11sp"
+                android:textStyle="bold"
                 android:letterSpacing="0.05"
                 android:importantForAccessibility="no" />
 
@@ -201,69 +204,52 @@
                 android:id="@+id/tvBeaconCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0 beacon"
-                android:textColor="#AAFFFFFF"
-                android:textSize="11sp"
-                android:importantForAccessibility="no"
-                tools:text="3 beacon" />
+                android:text="ARCore Ready"
+                android:textColor="#80FFFFFF"
+                android:textSize="10sp"
+                android:background="@drawable/bg_glass_badge"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:importantForAccessibility="no" />
 
         </LinearLayout>
 
-        <!-- Beacon name -->
+        <!-- Main Action text -->
         <TextView
             android:id="@+id/tvBeaconName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mencari sinyal beacon..."
+            android:text="Mulai Navigasi Kamera AR"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginBottom="6dp"
-            android:contentDescription="Posisi: Mencari sinyal beacon"
-            tools:text="Ruang 101 — Lantai 1" />
+            android:layout_marginBottom="2dp"
+            android:importantForAccessibility="no" />
 
-        <!-- RSSI row -->
-        <LinearLayout
+        <!-- Description text -->
+        <TextView
+            android:id="@+id/tvBeaconRssi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="4dp"
-            android:importantForAccessibility="no">
+            android:text="Deteksi lokasi &amp; arah otomatis dengan AR Camera"
+            android:textColor="#DDFFFFFF"
+            android:textSize="11sp"
+            android:importantForAccessibility="no" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Kekuatan Sinyal"
-                android:textColor="#AAFFFFFF"
-                android:textSize="11sp"
-                android:importantForAccessibility="no" />
-
-            <TextView
-                android:id="@+id/tvBeaconRssi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-- dBm"
-                android:textColor="#CCFFFFFF"
-                android:textSize="11sp"
-                android:importantForAccessibility="no"
-                tools:text="-62 dBm" />
-
-        </LinearLayout>
-
+        <!-- Status progress bar indicator -->
         <ProgressBar
             android:id="@+id/progressBeaconRssi"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:progress="0"
+            android:layout_height="4dp"
+            android:layout_marginTop="6dp"
+            android:progress="100"
             android:max="100"
             android:progressDrawable="@drawable/bg_rssi_progress"
-            android:importantForAccessibility="no"
-            tools:progress="65" />
+            android:importantForAccessibility="no" />
 
     </LinearLayout>
+
 
     <!-- ============================================================
          FEATURE CARDS — mengisi sisa layar secara proporsional

@@ -157,77 +157,20 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     // -------- Beacon Panel --------
-    @androidx.annotation.RequiresPermission(
-        allOf = [
-            android.Manifest.permission.BLUETOOTH_SCAN,
-            android.Manifest.permission.ACCESS_FINE_LOCATION
-        ]
-    )
     private fun initBeaconPanel() {
-        // Only start if we have BLE permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) return
-
-        bleScanner = BleScanner(this)
-        // Register known beacon UUID agar hanya beacon terdaftar yang terdeteksi
-        bleScanner?.addRegisteredUuid("0112233445566778899aabbccddeeff0")
-        bleScanner?.setOnBeaconDetectedListener(object : BeaconSource.OnBeaconDetectedListener {
-            override fun onBeaconDetected(
-                beaconId: String,
-                uuid: String,
-                major: Int,
-                minor: Int,
-                rssi: Int,
-                txPower: Int
-            ) {
-                if (!BeaconRoomMapper.isBeaconRegistered(major, minor)) return
-                
-                val rawName = BeaconRoomMapper.getDisplayNameForBeacon(major, minor)
-                val displayName = rawName.split(" ").joinToString(" ") { word ->
-                    word.replaceFirstChar { it.uppercase() }
-                }
-                beaconMap[beaconId] = Pair(displayName, rssi)
-                runOnUiThread { refreshBeaconPanel() }
-            }
-
-            override fun onBeaconLost(beaconId: String) {
-                beaconMap.remove(beaconId)
-                runOnUiThread { refreshBeaconPanel() }
-            }
-
-            override fun onScanError(errorMessage: String) {
-                Log.w("TunanetraActivity", "BeaconPanel scan error: $errorMessage")
-            }
-        })
-        bleScanner?.startScan()
-    }
-
-    private fun refreshBeaconPanel() {
-        val count = beaconMap.size
-        tvBeaconCount?.text = "$count beacon"
-
-        if (beaconMap.isEmpty()) {
-            tvBeaconName?.text = "Mencari sinyal beacon..."
-            tvBeaconName?.contentDescription = "Posisi: Mencari sinyal beacon"
-            tvBeaconRssi?.text = "-- dBm"
-            progressBeaconRssi?.progress = 0
-            return
+        cardBeaconPanel?.setOnClickListener {
+            vibrate()
+            speakAndNavigate(
+                "Navigasi Kamera AR",
+                DirectionActivity::class.java
+            )
         }
-
-        // Pick beacon with strongest RSSI (highest value, since dBm is negative)
-        val strongest = beaconMap.values.maxByOrNull { it.second } ?: return
-        val name = strongest.first
-        val rssi = strongest.second
-
-        // Map RSSI from -30 dBm (100%) to -100 dBm (0%)
-        val progress = ((rssi + 100).coerceIn(0, 70) * 100 / 70).coerceIn(0, 100)
-
-        tvBeaconName?.text = name
-        tvBeaconName?.contentDescription = "Posisi saat ini: $name"
-        tvBeaconRssi?.text = "$rssi dBm"
-        progressBeaconRssi?.progress = progress
+        tvBeaconName?.text = "Mulai Navigasi Kamera AR"
+        tvBeaconRssi?.text = "Deteksi lokasi & arah otomatis dengan AR Camera"
+        tvBeaconCount?.text = "ARCore Ready"
+        progressBeaconRssi?.progress = 100
     }
+
     // -------- End Beacon Panel --------
 
     private var listeningDialog: ListeningDialogHelper? = null
@@ -304,7 +247,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
             VoiceIntent.OPEN_NAVIGATION -> {
                 speakAndNavigate(
-                    "Navigasi Kompas",
+                    "Navigasi Kamera AR",
                     DirectionActivity::class.java
                 )
             }
@@ -315,12 +258,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 )
             }
             VoiceIntent.CHECK_LOCATION -> {
-                val beaconName = tvBeaconName?.text?.toString() ?: ""
-                if (beaconName == "Mencari sinyal beacon..." || beaconName.isBlank()) {
-                    speak("Lokasi belum ditemukan, masih mencari sinyal.")
-                } else {
-                    speak("Posisi Anda saat ini berada di sekitar $beaconName.")
-                }
+                speak("Arahkan kamera HP ke depan untuk deteksi posisi otomatis dengan AR.")
             }
             VoiceIntent.LOGOUT -> {
                 showLogoutDialog()
@@ -349,11 +287,12 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         speak("Ucapkan Hello Orion diikuti perintah. " +
                 "Perintah yang tersedia: " +
                 "Buka kamera, untuk membuka kamera AI. " +
-                "Buka navigasi, untuk navigasi kompas. " +
+                "Buka navigasi, untuk navigasi kamera AR. " +
                 "Buka lokasi, untuk berbagi lokasi. " +
                 "Di mana saya, untuk cek lokasi saat ini. " +
                 "Keluar, untuk logout.")
     }
+
 
     private fun toggleWakeWord() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -456,10 +395,11 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         cardNavigation.setOnClickListener {
             vibrate()
             speakAndNavigate(
-                "Navigasi Kompas",
+                "Navigasi Kamera AR",
                 DirectionActivity::class.java
             )
         }
+
         
         // Long-press Navigation card → open Compass Test (temporary for testing)
         cardNavigation.setOnLongClickListener {
