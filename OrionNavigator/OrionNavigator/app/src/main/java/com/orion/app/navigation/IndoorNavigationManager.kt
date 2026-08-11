@@ -9,17 +9,30 @@ import com.orion.app.tts.TTSManager
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+import com.orion.app.ar.backend.Pose6Dof
+import com.orion.app.ar.navigation.GraphRepository
+import com.orion.app.ar.navigation.Pathfinder
+import com.orion.app.ar.waypoints.Waypoint
+import com.orion.app.ar.waypoints.WaypointRepository
+
 /**
- * IndoorNavigationManager - Manages multi-step indoor navigation with compass guidance.
+ * IndoorNavigationManager - Manages multi-step indoor navigation with compass guidance and AR visual localization.
  * Provides step-by-step directions with alignment detection at each step.
- * 
- * Updated to use graph-based routing with Dijkstra algorithm (merged from YPAB project)
  */
 class IndoorNavigationManager(
     private val context: Context,
     private val compassManager: CompassManager,
     private val ttsManager: TTSManager
 ) : CompassManager.Callback {
+
+    // AR Core Waypoint & Navigation Repositories
+    val waypointRepo = WaypointRepository(context).apply { loadFromDisk() }
+    val graphRepo = GraphRepository(context).apply { load() }
+    
+    // AR tracking state
+    private var lastArPose: Pose6Dof? = null
+    private var resolvedWaypoints = mutableSetOf<String>()
+
 
     // Beacon stabilization
     private val smoothedRssi = mutableMapOf<Int, Double>()  // nodeId -> smoothed RSSI
@@ -223,6 +236,38 @@ class IndoorNavigationManager(
             setCurrentRoom(strongestNodeId)
         }
     }
+
+    /**
+     * Called when ARCore camera pose updates (6-DOF tracking).
+     */
+    fun onArPoseUpdated(pose: Pose6Dof) {
+        lastArPose = pose
+    }
+
+    /**
+     * Called when a Cloud Anchor or AR Waypoint is resolved visually by camera.
+     */
+    fun onAnchorResolved(waypointId: String, pose: Pose6Dof) {
+        resolvedWaypoints.add(waypointId)
+        val waypoint = waypointRepo.find(waypointId)
+        val waypointName = waypoint?.name ?: "Penanda AR"
+
+        Log.i(TAG, "AR Anchor resolved: $waypointName ($waypointId)")
+        ttsManager.speak("Penanda AR $waypointName terdeteksi via kamera.")
+
+        // Notify callback
+        callback?.onRoomChanged(waypointName)
+
+        // Check if destination reached via AR Cloud Anchor
+        if (destinationDisplayName != null && destinationDisplayName.equals(waypointName, ignoreCase = true)) {
+            val message = "Kamera mendeteksi $waypointName. Selamat, Anda telah sampai di tujuan!"
+            ttsManager.speakInterrupt(message)
+            callback?.onDestinationReached(waypointName)
+            callback?.onNavigationComplete()
+            resetNavigation()
+        }
+    }
+
     
     /**
      * Actually update the current room after stabilization

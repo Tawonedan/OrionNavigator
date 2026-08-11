@@ -66,17 +66,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import com.google.ar.core.Session
+import com.orion.app.ar.backend.ArSessionHooks
+import com.orion.app.ar.backend.GoogleCloudBackend
+import com.orion.app.ar.backend.ResolveAnchorRequest
+import com.orion.app.ar.core.ArCoreTrackingToken
+import com.orion.app.ar.core.LiveAnchorRegistry
+import com.orion.app.ar.helpers.ARCoreSessionLifecycleHelper
+import com.orion.app.ar.helpers.DisplayRotationHelper
+import com.orion.app.ar.helpers.TrackingStateHelper
+import com.orion.app.ar.samplerender.SampleRender
+import com.orion.app.ar.samplerender.arcore.BackgroundRenderer
+
 
 /**
- * DirectionActivity - Compass-based indoor navigation with step-by-step guidance.
+ * DirectionActivity - Compass-based indoor navigation with ARCore step-by-step guidance.
  * Uses ViewPager2 with 2 swipeable pages:
  *   Page 0: Full navigation UI (compass, beacons, step controls)
- *   Page 1: Camera AI + minimal navigation overlay
- * 
- * TTS navigation guidance works identically on both pages.
- * Camera AI detection is only active when page 1 is visible.
+ *   Page 1: AR Navigation Camera AI + minimal navigation overlay
  */
 @ExperimentalGetImage
 class DirectionActivity : AppCompatActivity(), 
@@ -107,6 +117,20 @@ class DirectionActivity : AppCompatActivity(),
     private lateinit var ttsManager: TTSManager
     private lateinit var navigationManager: IndoorNavigationManager
     private lateinit var bleScanner: BleScanner
+    
+    // ===== AR Core & Localization =====
+    private lateinit var arCoreSessionLifecycleHelper: ARCoreSessionLifecycleHelper
+    private lateinit var googleCloudBackend: GoogleCloudBackend
+    private lateinit var liveAnchors: LiveAnchorRegistry
+    private var arSampleRender: SampleRender? = null
+    private var backgroundRenderer: BackgroundRenderer? = null
+    private var displayRotationHelper: DisplayRotationHelper? = null
+    private var trackingStateHelper: TrackingStateHelper? = null
+    private var arGlSurfaceView: android.opengl.GLSurfaceView? = null
+    private var isArSessionActive = false
+    private val resolveInFlightIds = java.util.Collections.synchronizedSet(mutableSetOf<String>())
+    private var resolveLoopJob: Job? = null
+
     
     // ===== Camera AI =====
     private var cameraManager: CameraManager? = null
@@ -285,17 +309,126 @@ class DirectionActivity : AppCompatActivity(),
         
         setupViewPager()
         initVoiceCommand()
+        initArCore()
         checkPermissions()
+    }
+
+    private fun initArCore() {
+        googleCloudBackend = GoogleCloudBackend()
+        liveAnchors = LiveAnchorRegistry()
+        displayRotationHelper = DisplayRotationHelper(this)
+        trackingStateHelper = TrackingStateHelper(this)
+
+        arCoreSessionLifecycleHelper = ARCoreSessionLifecycleHelper(this)
+        arCoreSessionLifecycleHelper.beforeSessionResume = { session ->
+            googleCloudBackend.configureArSession(object : ArSessionHooks {
+                override fun setCloudAnchorModeEnabled(enabled: Boolean) {
+                    val config = session.config
+                    config.cloudAnchorMode = if (enabled) com.google.ar.core.Config.CloudAnchorMode.ENABLED else com.google.ar.core.Config.CloudAnchorMode.DISABLED
+                    session.configure(config)
+                }
+            })
+        }
+        arCoreSessionLifecycleHelper.afterSessionResume = { session ->
+            googleCloudBackend.bindSession(session)
+            startArCloudResolveLoop(session)
+        }
+        lifecycle.addObserver(arCoreSessionLifecycleHelper)
+    }
+
+    private fun setupArGlSurfaceView(view: View) {
+        arGlSurfaceView = view.findViewById(R.id.arGlSurfaceView)
+        arGlSurfaceView?.let { glView ->
+            arSampleRender = SampleRender(glView, object : SampleRender.Renderer {
+                override fun onSurfaceCreated(render: SampleRender) {
+                    try {
+                        backgroundRenderer = BackgroundRenderer(render).apply {
+                            setUseDepthVisualization(render, false)
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed creating backgroundRenderer", e)
+                    }
+                }
+
+                override fun onSurfaceChanged(render: SampleRender, width: Int, height: Int) {
+                    displayRotationHelper?.onSurfaceChanged(width, height)
+                }
+
+                override fun onDrawFrame(render: SampleRender) {
+                    val session = arCoreSessionLifecycleHelper.session ?: return
+                    val bgRenderer = backgroundRenderer ?: return
+                    displayRotationHelper?.updateSessionIfNeeded(session)
+
+                    try {
+                        val frame = session.update()
+                        val camera = frame.camera
+                        trackingStateHelper?.updateKeepScreenOnFlag(camera.trackingState)
+
+                        bgRenderer.updateDisplayGeometry(frame)
+                        if (frame.timestamp != 0L) {
+                            bgRenderer.drawBackground(render)
+                        }
+
+                        if (camera.trackingState == com.google.ar.core.TrackingState.TRACKING) {
+                            val pose = camera.pose
+                            val pose6Dof = com.orion.app.ar.backend.Pose6Dof(
+                                pose.tx(), pose.ty(), pose.tz(),
+                                pose.qx(), pose.qy(), pose.qz(), pose.qw()
+                            )
+                            navigationManager.onArPoseUpdated(pose6Dof)
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "AR frame rendering error", e)
+                    }
+                }
+            }, assets)
+        }
+    }
+
+    private fun startArCloudResolveLoop(session: Session) {
+        resolveLoopJob?.cancel()
+        resolveLoopJob = lifecycleScope.launch(Dispatchers.IO) {
+            while (isArSessionActive) {
+                val resolvableWaypoints = navigationManager.waypointRepo.resolvable()
+                for (waypoint in resolvableWaypoints) {
+                    val cloudId = waypoint.backendAnchorId ?: continue
+                    if (resolveInFlightIds.contains(cloudId)) continue
+
+                    resolveInFlightIds.add(cloudId)
+                    launch {
+                        try {
+                            val result = googleCloudBackend.resolveAnchor(
+                                ResolveAnchorRequest(backendAnchorId = cloudId, waypointId = waypoint.id)
+                            )
+                            if (result.success && result.localTrackingToken is ArCoreTrackingToken) {
+                                val token = result.localTrackingToken as ArCoreTrackingToken
+                                liveAnchors.put(waypoint.id, token.anchor)
+                                val pose = result.pose ?: com.orion.app.ar.backend.Pose6Dof(0f, 0f, 0f, 0f, 0f, 0f, 1f)
+                                withContext(Dispatchers.Main) {
+                                    navigationManager.onAnchorResolved(waypoint.id, pose)
+                                }
+                            }
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Failed resolving anchor $cloudId", e)
+                        } finally {
+                            resolveInFlightIds.remove(cloudId)
+                        }
+                    }
+                }
+                delay(3000L)
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         compassManager.start()
         bleScanner.startScan()
+        displayRotationHelper?.onResume()
+        isArSessionActive = true
         if (isCameraActive && currentPage == PAGE_CAMERA) {
             cameraTtsManager?.resetLastSpoken()
         }
-        // Start wake word mode if mic permission is granted and wakeword was enabled
         if (isWakeWordEnabled && ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
             == PackageManager.PERMISSION_GRANTED) {
             voiceCommandManager?.startWakeWordMode()
@@ -306,24 +439,24 @@ class DirectionActivity : AppCompatActivity(),
         super.onPause()
         compassManager.stop()
         bleScanner.stopScan()
+        displayRotationHelper?.onPause()
+        isArSessionActive = false
+        resolveLoopJob?.cancel()
         stopCamera()
         voiceCommandManager?.stopWakeWordMode()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        // 1. Stop tung loop dulu agar Handler tidak callback setelah destroy
         stopTungLoop()
-        // 2. Cancel coroutine describe loading
         descLoadingSoundJob?.cancel()
         descLoadingSoundJob = null
         isProcessingDescription = false
-        // 3. Release tone generators
+        resolveLoopJob?.cancel()
         toneGenerator?.release()
         toneGenerator = null
         descLoadingToneGenerator?.release()
         descLoadingToneGenerator = null
-        // 4. Stop & destroy managers
         navigationManager.stop()
         bleScanner.stopScan()
         ttsManager.shutdown()
@@ -331,7 +464,7 @@ class DirectionActivity : AppCompatActivity(),
         cameraManager?.shutdown()
         objectDetectorHelper?.close()
         voiceCommandManager?.destroy()
-        Log.d(TAG, "DirectionActivity destroyed, all resources cleaned up")
+        Log.d(TAG, "DirectionActivity destroyed, all AR & core resources cleaned up")
     }
 
     // =========================================================================
@@ -503,6 +636,9 @@ class DirectionActivity : AppCompatActivity(),
         camBtnDescribe = v.findViewById(R.id.camBtnDescribe)
         camProgressDescribe = v.findViewById(R.id.camProgressDescribe)
         
+        // Setup AR GL Surface View
+        setupArGlSurfaceView(v)
+
         // Setup camera page UI (spinner, toggle, buttons)
         setupCamPageUI()
     }
@@ -1109,6 +1245,7 @@ class DirectionActivity : AppCompatActivity(),
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        arCoreSessionLifecycleHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {

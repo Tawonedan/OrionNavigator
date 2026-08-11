@@ -12,15 +12,22 @@
     android:background="#0D1B2A">
 
     <!-- ============================================================
-         LAYER 1: Camera Preview — full screen
+         LAYER 1: AR GL Surface & Camera Preview — full screen
          ============================================================ -->
+    <android.opengl.GLSurfaceView
+        android:id="@+id/arGlSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <androidx.camera.view.PreviewView
         android:id="@+id/camPreviewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="Kamera AI aktif"
+        android:visibility="gone"
         app:scaleType="fillCenter"
         app:implementationMode="compatible" />
+
 
     <!-- ============================================================
          LAYER 2: Detection Bounding Box Overlay
