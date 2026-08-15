@@ -23,6 +23,7 @@
         android:layout_height="3dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:importantForAccessibility="no">
 
         <!-- Strip: Navigasi (left half) -->

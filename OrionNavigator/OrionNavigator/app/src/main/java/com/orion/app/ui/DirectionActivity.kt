@@ -235,6 +235,7 @@ class DirectionActivity : AppCompatActivity(),
     var viewportHeight: Int = 1
 
     // Map/Navigate UI Controls
+    private var camLayoutModeSelector: LinearLayout? = null
     private var camBtnModeNav: MaterialButton? = null
     private var camBtnModeMap: MaterialButton? = null
     private var camLayoutMapControls: LinearLayout? = null
@@ -248,7 +249,10 @@ class DirectionActivity : AppCompatActivity(),
     private var camBtnSavedMarkers: MaterialButton? = null
     private var camBtnScanAgain: MaterialButton? = null
     private var camCrosshairOverlay: View? = null
+    private var camCrosshairRing: View? = null
     private var camCrosshairDot: View? = null
+    private var activeConnectionsDialog: androidx.appcompat.app.AlertDialog? = null
+    private var pathWaypointIds: List<String> = emptyList()
     private var camLayoutManeuverBanner: LinearLayout? = null
     private var camTvManeuverTurn: TextView? = null
     private var camTvManeuverHint: TextView? = null
@@ -490,7 +494,9 @@ class DirectionActivity : AppCompatActivity(),
                             )
                             val canPlace = placementHit != null
                             runOnUiThread {
-                                camCrosshairDot?.setBackgroundColor(if (canPlace) Color.parseColor("#00E676") else Color.parseColor("#FF9800"))
+                                val statusColor = if (canPlace) Color.parseColor("#00E676") else Color.parseColor("#FF1744")
+                                camCrosshairRing?.backgroundTintList = android.content.res.ColorStateList.valueOf(statusColor)
+                                camCrosshairDot?.backgroundTintList = android.content.res.ColorStateList.valueOf(statusColor)
                             }
 
                             if (dropWaypointRequested) {
@@ -567,30 +573,66 @@ class DirectionActivity : AppCompatActivity(),
     }
 
     private fun drawPathSpheresTowardNext(render: SampleRender, camera: com.google.ar.core.Camera) {
-        if (arrivedAtDestination || navTurn == com.orion.app.ar.ui.NavTurn.NONE || navTurn == com.orion.app.ar.ui.NavTurn.LOST) return
-        val targetId = nextWaypointId ?: return
-        val targetAnchor = liveAnchors.get(targetId) ?: return
-        if (targetAnchor.trackingState != com.google.ar.core.TrackingState.TRACKING) return
+        if (!isNavigating) return
+        val color = floatArrayOf(0.1f, 0.95f, 1.0f, 1f)
+        val cameraPose = camera.pose
 
         try {
-            val cameraPose = camera.pose
-            val target = targetAnchor.pose
-            val dx = target.tx() - cameraPose.tx()
-            val dz = target.tz() - cameraPose.tz()
-            val len = kotlin.math.sqrt(dx * dx + dz * dz)
-            if (len < 0.4f) return
+            // 1. Draw spheres from phone camera to next target waypoint
+            val targetId = nextWaypointId ?: pathWaypointIds.firstOrNull()
+            if (targetId != null) {
+                val targetAnchor = liveAnchors.get(targetId)
+                if (targetAnchor != null && targetAnchor.trackingState == com.google.ar.core.TrackingState.TRACKING) {
+                    val target = targetAnchor.pose
+                    val dx = target.tx() - cameraPose.tx()
+                    val dz = target.tz() - cameraPose.tz()
+                    val len = kotlin.math.sqrt(dx * dx + dz * dz)
+                    if (len >= 0.35f) {
+                        val nx = dx / len
+                        val nz = dz / len
+                        val y = cameraPose.ty() - 0.35f
+                        val maxDist = kotlin.math.min(len - 0.25f, 5.5f)
+                        var dist = 0.35f
+                        while (dist <= maxDist) {
+                            val p = com.google.ar.core.Pose.makeTranslation(
+                                cameraPose.tx() + nx * dist, y, cameraPose.tz() + nz * dist
+                            )
+                            drawGuideSphere(render, p, color)
+                            dist += 0.35f
+                        }
+                    }
+                }
+            }
 
-            val nx = dx / len
-            val nz = dz / len
-            val y = cameraPose.ty() - 0.35f
-            val maxDist = kotlin.math.min(len - 0.25f, 5.5f)
-            val color = floatArrayOf(0.1f, 0.95f, 1.0f, 1f)
+            // 2. Draw spheres along consecutive path waypoint pairs
+            if (pathWaypointIds.size >= 2) {
+                for (i in 0 until pathWaypointIds.size - 1) {
+                    val idA = pathWaypointIds[i]
+                    val idB = pathWaypointIds[i + 1]
+                    val anchorA = liveAnchors.get(idA) ?: continue
+                    val anchorB = liveAnchors.get(idB) ?: continue
+                    if (anchorA.trackingState != com.google.ar.core.TrackingState.TRACKING ||
+                        anchorB.trackingState != com.google.ar.core.TrackingState.TRACKING) continue
 
-            var dist = 0.35f
-            while (dist <= maxDist) {
-                val pose = com.google.ar.core.Pose.makeTranslation(cameraPose.tx() + nx * dist, y, cameraPose.tz() + nz * dist)
-                drawGuideSphere(render, pose, color)
-                dist += 0.32f
+                    val poseA = anchorA.pose
+                    val poseB = anchorB.pose
+                    val dx = poseB.tx() - poseA.tx()
+                    val dz = poseB.tz() - poseA.tz()
+                    val len = kotlin.math.sqrt(dx * dx + dz * dz)
+                    if (len < 0.2f) continue
+
+                    val nx = dx / len
+                    val nz = dz / len
+                    val y = (poseA.ty() + poseB.ty()) * 0.5f - 0.1f
+                    var d = 0.2f
+                    while (d < len - 0.2f) {
+                        val p = com.google.ar.core.Pose.makeTranslation(
+                            poseA.tx() + nx * d, y, poseA.tz() + nz * d
+                        )
+                        drawGuideSphere(render, p, color)
+                        d += 0.4f
+                    }
+                }
             }
         } catch (e: Exception) {
             Log.w(TAG, "drawPathSpheresTowardNext failed", e)
@@ -721,6 +763,7 @@ class DirectionActivity : AppCompatActivity(),
         
         val startPage = intent.getIntExtra("START_PAGE", PAGE_CAMERA)
         viewPager.adapter = NavigationPagerAdapter()
+        viewPager.isUserInputEnabled = false // Disable swipe left/right between pages
         viewPager.offscreenPageLimit = 1  // Keep both pages in memory
         
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -860,9 +903,8 @@ class DirectionActivity : AppCompatActivity(),
         camTvObjectName = v.findViewById(R.id.camTvObjectName)
         camBtnAction = v.findViewById(R.id.camBtnAction)
         camBtnStop = v.findViewById(R.id.camBtnStop)
-        camBtnDescribe = v.findViewById(R.id.camBtnDescribe)
-        camProgressDescribe = v.findViewById(R.id.camProgressDescribe)
         
+        camLayoutModeSelector = v.findViewById(R.id.camLayoutModeSelector)
         camBtnModeNav = v.findViewById(R.id.camBtnModeNav)
         camBtnModeMap = v.findViewById(R.id.camBtnModeMap)
         camLayoutMapControls = v.findViewById(R.id.camLayoutMapControls)
@@ -871,11 +913,11 @@ class DirectionActivity : AppCompatActivity(),
         chipTypeDoor = v.findViewById(R.id.chipTypeDoor)
         chipTypeHallway = v.findViewById(R.id.chipTypeHallway)
         chipTypeOther = v.findViewById(R.id.chipTypeOther)
-        camBtnMarkSpot = v.findViewById(R.id.camBtnMarkSpot)
         camBtnConnections = v.findViewById(R.id.camBtnConnections)
         camBtnSavedMarkers = v.findViewById(R.id.camBtnSavedMarkers)
         camBtnScanAgain = v.findViewById(R.id.camBtnScanAgain)
         camCrosshairOverlay = v.findViewById(R.id.camCrosshairOverlay)
+        camCrosshairRing = v.findViewById(R.id.camCrosshairRing)
         camCrosshairDot = v.findViewById(R.id.camCrosshairDot)
         camLayoutManeuverBanner = v.findViewById(R.id.camLayoutManeuverBanner)
         camTvManeuverTurn = v.findViewById(R.id.camTvManeuverTurn)
@@ -946,6 +988,7 @@ class DirectionActivity : AppCompatActivity(),
             camLayoutNavigateControls?.visibility = View.VISIBLE
             camLayoutMapControls?.visibility = View.GONE
             camCrosshairOverlay?.visibility = View.GONE
+            updateBottomPrimaryButton()
             ttsManager.speak("Mode Navigasi AR aktif.")
         }
 
@@ -957,6 +1000,7 @@ class DirectionActivity : AppCompatActivity(),
             camLayoutMapControls?.visibility = View.VISIBLE
             camCrosshairOverlay?.visibility = View.VISIBLE
             camLayoutNavigateControls?.visibility = View.GONE
+            updateBottomPrimaryButton()
             ttsManager.speak("Mode Buat Peta AR aktif. Arahkan HP ke lokasi lalu tekan Tandai Lokasi.")
         }
 
@@ -996,18 +1040,13 @@ class DirectionActivity : AppCompatActivity(),
             }
         }
 
-        // --- Destination Spinner (same data as nav page) ---
+        // --- Destination Spinner ---
         setupCamDestinationSpinner()
 
-        // --- Start Navigation Button ---
-        camBtnStartNavigation?.setOnClickListener {
+        // --- Stop Navigation Button ---
+        camBtnStop?.setOnClickListener {
             provideHapticFeedback()
-            val selectedRoom = camSpinnerDestination?.selectedItem as? String
-            if (selectedRoom != null && !selectedRoom.startsWith("Belum ada")) {
-                startNavigation()
-            } else {
-                ttsManager.speak("Pilih tujuan terlebih dahulu")
-            }
+            stopNavigation()
         }
 
         // --- Action Button (confirm step / count step) ---
@@ -1020,14 +1059,93 @@ class DirectionActivity : AppCompatActivity(),
             }
         }
 
-        // --- Describe Scene Button ---
-        camBtnDescribe?.setOnClickListener {
-            provideHapticFeedback()
-            describeCurrentScene()
-        }
-
         // Set initial state
         syncCameraPageState()
+
+        val requestedMode = intent.getStringExtra("EXTRA_APP_MODE")
+        if (requestedMode == "MAP") {
+            camLayoutModeSelector?.visibility = View.VISIBLE
+            camBtnModeMap?.performClick()
+        } else {
+            camLayoutModeSelector?.visibility = View.GONE
+            appMode = com.orion.app.ar.ui.AppMode.NAVIGATE
+            camLayoutNavigateControls?.visibility = View.VISIBLE
+            camLayoutMapControls?.visibility = View.GONE
+            camCrosshairOverlay?.visibility = View.GONE
+            updateBottomPrimaryButton()
+        }
+    }
+
+    private fun findNearestWaypointId(): String? {
+        val waypoints = navigationManager.waypointRepo.waypoints
+        if (waypoints.isEmpty()) return null
+        val trackingAnchors = waypoints.mapNotNull { wp ->
+            val anchor = liveAnchors.get(wp.id) ?: return@mapNotNull null
+            if (anchor.trackingState == com.google.ar.core.TrackingState.TRACKING) {
+                Pair(wp.id, anchor.pose)
+            } else null
+        }
+        if (trackingAnchors.isEmpty()) return waypoints.firstOrNull()?.id
+        return trackingAnchors.minByOrNull { (_, pose) ->
+            pose.tx() * pose.tx() + pose.tz() * pose.tz()
+        }?.first ?: waypoints.firstOrNull()?.id
+    }
+
+    private fun updateBottomPrimaryButton() {
+        if (isNavigating) {
+            camBtnStartNavigation?.visibility = View.GONE
+            camBtnStop?.visibility = View.VISIBLE
+        } else {
+            camBtnStop?.visibility = View.GONE
+            camBtnStartNavigation?.visibility = View.VISIBLE
+            if (appMode == com.orion.app.ar.ui.AppMode.MAP) {
+                camBtnStartNavigation?.text = "TANDAI LOKASI"
+                camBtnStartNavigation?.contentDescription = "Tekan untuk menandai lokasi penanda AR"
+                camBtnStartNavigation?.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#CC2E7D32"))
+                camBtnStartNavigation?.setOnClickListener {
+                    provideHapticFeedback()
+                    dropWaypointRequested = true
+                }
+            } else {
+                camBtnStartNavigation?.text = "MULAI NAVIGASI"
+                camBtnStartNavigation?.contentDescription = "Tekan untuk memulai navigasi ke tujuan"
+                camBtnStartNavigation?.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#CC1565C0"))
+                camBtnStartNavigation?.setOnClickListener {
+                    provideHapticFeedback()
+                    val selectedRoom = camSpinnerDestination?.selectedItem as? String
+                    if (selectedRoom == null || selectedRoom.startsWith("Belum ada")) {
+                        ttsManager.speak("Pilih tujuan terlebih dahulu.")
+                        return@setOnClickListener
+                    }
+                    val targetWp = navigationManager.waypointRepo.waypoints.find { it.name == selectedRoom }
+                    if (targetWp == null) {
+                        ttsManager.speak("Penanda tujuan tidak ditemukan.")
+                        return@setOnClickListener
+                    }
+
+                    val startId = findNearestWaypointId() ?: navigationManager.waypointRepo.waypoints.firstOrNull()?.id
+                    if (startId == null) {
+                        ttsManager.speak("Belum ada penanda lokasi tersimpan.")
+                        return@setOnClickListener
+                    }
+
+                    val pathResult = com.orion.app.ar.navigation.Pathfinder.findPath(
+                        navigationManager.graphRepo.graph,
+                        startId,
+                        targetWp.id
+                    )
+
+                    if (pathResult == null && startId != targetWp.id) {
+                        ttsManager.speak("Belum ada koneksi jalur ke $selectedRoom. Buka menu Koneksi di Mode Peta.")
+                        Toast.makeText(this@DirectionActivity, "Belum ada koneksi jalur! Buka menu Koneksi di Mode Peta.", Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+                    }
+
+                    pathWaypointIds = pathResult?.waypointIds ?: listOf(targetWp.id)
+                    startNavigation()
+                }
+            }
+        }
     }
 
     private fun showWaypointNamingDialog(pose: com.google.ar.core.Pose) {
@@ -1061,9 +1179,25 @@ class DirectionActivity : AppCompatActivity(),
 
     private fun saveWaypointAtPose(name: String, type: com.orion.app.ar.waypoints.WaypointType, pose: com.google.ar.core.Pose) {
         val session = arCoreSessionLifecycleHelper.session ?: return
+        val provId = java.util.UUID.randomUUID().toString()
+        val anchor = session.createAnchor(pose)
+
+        // Immediately put anchor into liveAnchors so 3D pin renders instantly on screen!
+        liveAnchors.put(provId, anchor)
+
+        val waypoint = com.orion.app.ar.waypoints.Waypoint(
+            id = provId,
+            name = name,
+            type = type,
+            backendAnchorId = null
+        )
+        navigationManager.waypointRepo.add(waypoint)
+        setupDestinationSpinner()
+        setupCamDestinationSpinner()
+        ttsManager.speak("Penanda $name tersimpan.")
+
+        // Host anchor to Google Cloud in background IO thread
         lifecycleScope.launch(Dispatchers.IO) {
-            val anchor = session.createAnchor(pose)
-            val provId = java.util.UUID.randomUUID().toString()
             val result = googleCloudBackend.hostAnchor(
                 com.orion.app.ar.backend.HostAnchorRequest(
                     provisionalId = provId,
@@ -1071,17 +1205,8 @@ class DirectionActivity : AppCompatActivity(),
                     displayName = name
                 )
             )
-            val waypoint = com.orion.app.ar.waypoints.Waypoint(
-                id = provId,
-                name = name,
-                type = type,
-                backendAnchorId = if (result.success) result.backendAnchorId else null
-            )
-            navigationManager.waypointRepo.add(waypoint)
-            withContext(Dispatchers.Main) {
-                setupDestinationSpinner()
-                setupCamDestinationSpinner()
-                ttsManager.speak("Penanda $name tersimpan.")
+            if (result.success && result.backendAnchorId != null) {
+                navigationManager.waypointRepo.setBackendAnchorId(provId, result.backendAnchorId)
             }
         }
     }
@@ -1090,39 +1215,140 @@ class DirectionActivity : AppCompatActivity(),
         val waypoints = navigationManager.waypointRepo.waypoints
         if (waypoints.size < 2) {
             ttsManager.speak("Dibutuhkan minimal 2 penanda untuk membuat koneksi jalur.")
+            Toast.makeText(this, "Dibutuhkan minimal 2 penanda.", Toast.LENGTH_SHORT).show()
             return
         }
-        val names = waypoints.map { it.name }.toTypedArray()
 
-        val layout = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(32, 16, 32, 16)
-        }
-        val spinnerA = android.widget.Spinner(this).apply {
-            adapter = ArrayAdapter(this@DirectionActivity, android.R.layout.simple_spinner_dropdown_item, names)
-        }
-        val spinnerB = android.widget.Spinner(this).apply {
-            adapter = ArrayAdapter(this@DirectionActivity, android.R.layout.simple_spinner_dropdown_item, names)
-            setSelection(1)
-        }
-        layout.addView(TextView(this).apply { text = "Dari:"; setTextColor(Color.WHITE) })
-        layout.addView(spinnerA)
-        layout.addView(TextView(this).apply { text = "Ke:"; setTextColor(Color.WHITE); setPadding(0, 16, 0, 0) })
-        layout.addView(spinnerB)
+        var firstSelectedId: String? = null
 
-        androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Koneksi Jalur Walkable")
-            .setView(layout)
-            .setPositiveButton("Hubungkan") { _, _ ->
-                val idA = waypoints[spinnerA.selectedItemPosition].id
-                val idB = waypoints[spinnerB.selectedItemPosition].id
-                if (idA != idB) {
-                    navigationManager.graphRepo.connect(idA, idB)
-                    ttsManager.speak("Koneksi tersimpan.")
-                }
+        fun buildAndShowDialog() {
+            val dialogView = LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(32, 24, 32, 24)
             }
-            .setNegativeButton("Batal", null)
-            .show()
+
+            val tvHint = TextView(this).apply {
+                text = if (firstSelectedId == null) {
+                    "Pilih penanda pertama lalu penanda kedua untuk menyambung jalur."
+                } else {
+                    val firstName = waypoints.find { it.id == firstSelectedId }?.name ?: ""
+                    "Terpilih: $firstName — Pilih penanda kedua untuk menyambung."
+                }
+                setTextColor(Color.WHITE)
+                textSize = 14f
+                setPadding(0, 0, 0, 16)
+            }
+            dialogView.addView(tvHint)
+
+            val scrollMarkers = android.widget.ScrollView(this).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, 400
+                )
+            }
+            val containerMarkers = LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+            }
+
+            for (wp in waypoints) {
+                val isSelected = wp.id == firstSelectedId
+                val btnMarker = MaterialButton(this).apply {
+                    text = wp.name
+                    textSize = 13f
+                    setTextColor(Color.WHITE)
+                    setBackgroundColor(if (isSelected) Color.parseColor("#1B5E20") else Color.parseColor("#263238"))
+                    layoutParams = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                    ).apply { setMargins(0, 4, 0, 4) }
+                    setOnClickListener {
+                        val currentFirst = firstSelectedId
+                        when {
+                            currentFirst == null -> {
+                                firstSelectedId = wp.id
+                                buildAndShowDialog()
+                            }
+                            currentFirst == wp.id -> {
+                                firstSelectedId = null
+                                buildAndShowDialog()
+                            }
+                            else -> {
+                                val nameA = waypoints.find { it.id == currentFirst }?.name ?: ""
+                                val nameB = wp.name
+                                navigationManager.graphRepo.connect(currentFirst, wp.id, 1.0f)
+                                ttsManager.speak("Terhubung $nameA dengan $nameB")
+                                firstSelectedId = null
+                                buildAndShowDialog()
+                            }
+                        }
+                    }
+                }
+                containerMarkers.addView(btnMarker)
+            }
+            scrollMarkers.addView(containerMarkers)
+            dialogView.addView(scrollMarkers)
+
+            val edges = navigationManager.graphRepo.graph.edges
+            if (edges.isNotEmpty()) {
+                val tvEdgeTitle = TextView(this).apply {
+                    text = "Daftar Koneksi Aktif (${edges.size}):"
+                    setTextColor(Color.parseColor("#81D4FA"))
+                    textSize = 13f
+                    setTypeface(null, android.graphics.Typeface.BOLD)
+                    setPadding(0, 16, 0, 8)
+                }
+                dialogView.addView(tvEdgeTitle)
+
+                val scrollEdges = android.widget.ScrollView(this).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, 260
+                    )
+                }
+                val containerEdges = LinearLayout(this).apply {
+                    orientation = LinearLayout.VERTICAL
+                }
+
+                val wpMap = waypoints.associateBy { it.id }
+                for (edge in edges) {
+                    val fromName = wpMap[edge.fromId]?.name ?: continue
+                    val toName = wpMap[edge.toId]?.name ?: continue
+                    val row = LinearLayout(this).apply {
+                        orientation = LinearLayout.HORIZONTAL
+                        gravity = android.view.Gravity.CENTER_VERTICAL
+                        setPadding(0, 4, 0, 4)
+                    }
+                    val tvPair = TextView(this).apply {
+                        text = "$fromName ↔ $toName"
+                        setTextColor(Color.WHITE)
+                        textSize = 13f
+                        layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+                    }
+                    val btnDelete = MaterialButton(this).apply {
+                        text = "Hapus"
+                        textSize = 11f
+                        setTextColor(Color.parseColor("#FF5252"))
+                        setBackgroundColor(Color.TRANSPARENT)
+                        setOnClickListener {
+                            navigationManager.graphRepo.disconnect(edge.fromId, edge.toId)
+                            ttsManager.speak("Koneksi dihapus.")
+                            buildAndShowDialog()
+                        }
+                    }
+                    row.addView(tvPair)
+                    row.addView(btnDelete)
+                    containerEdges.addView(row)
+                }
+                scrollEdges.addView(containerEdges)
+                dialogView.addView(scrollEdges)
+            }
+
+            activeConnectionsDialog?.dismiss()
+            activeConnectionsDialog = androidx.appcompat.app.AlertDialog.Builder(this@DirectionActivity)
+                .setTitle("Sambung Penanda (Koneksi Jalur)")
+                .setView(dialogView)
+                .setPositiveButton("Selesai", null)
+                .show()
+        }
+
+        buildAndShowDialog()
     }
 
     private fun showSavedMarkersDialog() {
@@ -2116,7 +2342,7 @@ class DirectionActivity : AppCompatActivity(),
         
         val actualRoomName = getRoomNameForBeacon(major, minor)
         detectedBeacons[beaconId] = BeaconSignal(actualRoomName, rssi, major, minor)
-        navigationManager.onBeaconDetected(major, minor, rssi)
+        // navigationManager.onBeaconDetected(major, minor, rssi) // BLE disabled in favor of ARCore
         
         runOnUiThread {
             updateBeaconSignalUI()

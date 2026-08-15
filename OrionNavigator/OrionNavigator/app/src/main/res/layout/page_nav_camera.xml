@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     page_nav_camera.xml — Camera AI page (Page 1) di DirectionActivity ViewPager
-    Glassmorphism: bg_beacon_panel untuk overlay kamera, glass badge untuk objek,
-    glass bottom dock untuk action buttons. Semua ID dipertahankan persis.
+    Glassmorphism AR Navigation UI with spatial crosshair, bottom primary action dock,
+    and mode tabs.
 -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,7 +50,7 @@
         android:importantForAccessibility="no" />
 
     <!-- ============================================================
-         LAYER 4: TOP GLASS PANEL — Lokasi + Tujuan + Toggle + Mulai
+         LAYER 4: TOP GLASS PANEL — Lokasi + Mode Toggle + Controls
          ============================================================ -->
     <LinearLayout
         android:id="@+id/camNavOverlay"
@@ -115,12 +115,13 @@
 
         <!-- Mode Selector: NAVIGASI vs PETA -->
         <LinearLayout
+            android:id="@+id/camLayoutModeSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="#20FFFFFF"
             android:padding="3dp"
-            android:layout_marginVertical="4dp">
+            android:layout_marginVertical="6dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/camBtnModeNav"
@@ -163,7 +164,7 @@
                 android:text="Jenis Penanda:"
                 android:textSize="11sp"
                 android:textColor="#CCFFFFFF"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="2dp" />
 
             <!-- Category Chips -->
             <HorizontalScrollView
@@ -225,26 +226,12 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- Mark Spot Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/camBtnMarkSpot"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="TANDAI LOKASI"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#CC2E7D32"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/ic_navigation"
-                app:iconGravity="textStart" />
-
             <!-- Action buttons row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center">
 
                 <com.google.android.material.button.MaterialButton
@@ -347,31 +334,9 @@
                     android:ellipsize="end" />
             </LinearLayout>
 
-            <!-- Start Navigation Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/camBtnStartNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:text="MULAI NAVIGASI"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="true"
-                android:contentDescription="Tekan untuk memulai navigasi ke tujuan yang dipilih"
-                app:backgroundTint="#CC1565C0"
-                app:cornerRadius="12dp"
-                app:icon="@drawable/ic_navigation"
-                app:iconGravity="textStart"
-                app:iconSize="18dp"
-                app:iconTint="@color/white"
-                app:strokeColor="#55FFFFFF"
-                app:strokeWidth="1dp"
-                app:rippleColor="@color/ripple_color" />
         </LinearLayout>
 
-        <!-- Navigation Info Panel (visible during navigation) -->
+        <!-- Navigation Info Panel (visible during active navigation) -->
         <LinearLayout
             android:id="@+id/camNavInfoPanel"
             android:layout_width="match_parent"
@@ -471,22 +436,22 @@
          ============================================================ -->
     <FrameLayout
         android:id="@+id/camCrosshairOverlay"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_gravity="center"
         android:visibility="gone"
         android:importantForAccessibility="no">
         <View
             android:id="@+id/camCrosshairRing"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/bg_status_active" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_crosshair_ring" />
         <View
             android:id="@+id/camCrosshairDot"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_gravity="center"
-            android:background="#00E676" />
+            android:background="@drawable/bg_crosshair_dot" />
     </FrameLayout>
 
     <!-- ============================================================
@@ -512,51 +477,7 @@
         android:accessibilityLiveRegion="none" />
 
     <!-- ============================================================
-         LAYER 6: Jelaskan button — di atas bottom dock
-         ============================================================ -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="170dp"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <!-- Loading ProgressBar -->
-        <ProgressBar
-            android:id="@+id/camProgressDescribe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="#FFFFFF"
-            android:visibility="gone"
-            android:layout_marginBottom="8dp"
-            android:importantForAccessibility="no" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/camBtnDescribe"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:text="Jelaskan"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:hapticFeedbackEnabled="true"
-            android:contentDescription="Jelaskan apa yang terlihat di kamera"
-            app:backgroundTint="#CC1565C0"
-            app:cornerRadius="26dp"
-            app:icon="@drawable/ic_camera_voice"
-            app:iconGravity="textStart"
-            app:iconSize="20dp"
-            app:iconTint="@color/white"
-            app:strokeColor="#55FFFFFF"
-            app:strokeWidth="1dp"
-            app:rippleColor="@color/ripple_color" />
-
-    </LinearLayout>
-
-    <!-- ============================================================
-         LAYER 7: BOTTOM GLASS DOCK — Action buttons (Lanjut / Hentikan)
+         LAYER 6: BOTTOM GLASS DOCK — Primary Action Buttons (Mulai Navigasi / Tandai Lokasi / Hentikan)
          ============================================================ -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -568,27 +489,36 @@
         android:paddingBottom="16dp"
         android:background="@drawable/bg_glass_bottom_panel">
 
-        <!-- Confirm Step / Count Step Button (large, accessible) -->
+        <!-- Hidden legacy step action button kept for ID compat -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/camBtnAction"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:text="LANJUT&#10;Langkah Berikutnya"
-            android:textSize="18sp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
+        <!-- Primary Action Button (MULAI NAVIGASI in Nav Mode, TANDAI LOKASI in Map Mode) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/camBtnStartNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="MULAI NAVIGASI"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:enabled="false"
-            android:visibility="gone"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
-            android:contentDescription="Tekan untuk lanjut ke langkah berikutnya"
+            android:contentDescription="Tekan untuk memulai navigasi ke tujuan"
             app:backgroundTint="#CC1565C0"
-            app:cornerRadius="16dp"
+            app:cornerRadius="14dp"
+            app:icon="@drawable/ic_navigation"
+            app:iconGravity="textStart"
+            app:iconSize="18dp"
+            app:iconTint="@color/white"
             app:strokeColor="#55FFFFFF"
             app:strokeWidth="1dp"
             app:rippleColor="@color/ripple_color" />
 
-        <!-- Stop Navigation Button -->
+        <!-- Stop Navigation Button (visible during active navigation) -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/camBtnStop"
             android:layout_width="match_parent"
@@ -599,13 +529,14 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:visibility="gone"
+            android:gravity="center"
             android:hapticFeedbackEnabled="true"
-            android:contentDescription="Tekan untuk menghentikan navigasi"
-            app:backgroundTint="#99B71C1C"
+            android:contentDescription="Tekan untuk menghentikan proses navigasi"
+            app:backgroundTint="#CBD32F2F"
             app:cornerRadius="12dp"
-            app:strokeColor="#50FFFFFF"
-            app:strokeWidth="1dp" />
-
+            app:strokeColor="#55FFFFFF"
+            app:strokeWidth="1dp"
+            app:rippleColor="@color/ripple_color" />
     </LinearLayout>
 
 </FrameLayout>

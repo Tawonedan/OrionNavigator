@@ -124,7 +124,7 @@ class RoleSelectionActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         android.os.Handler(mainLooper).postDelayed({
             val intent = when (role) {
                 SplashActivity.ROLE_TUNANETRA -> Intent(this, TunanetraActivity::class.java)
-                SplashActivity.ROLE_PENDAMPING -> Intent(this, PendampingActivity::class.java)
+                SplashActivity.ROLE_PENDAMPING -> Intent(this, PendampingHomeActivity::class.java)
                 else -> return@postDelayed
             }
             startActivity(intent)

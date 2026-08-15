@@ -78,7 +78,7 @@ class SplashActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         
         val intent = when (savedRole) {
             ROLE_TUNANETRA -> Intent(this, TunanetraActivity::class.java)
-            ROLE_PENDAMPING -> Intent(this, PendampingActivity::class.java)
+            ROLE_PENDAMPING -> Intent(this, PendampingHomeActivity::class.java)
             else -> Intent(this, RoleSelectionActivity::class.java)
         }
         
