@@ -120,6 +120,26 @@
             android:label="@string/camera_ai_feature"
             android:screenOrientation="portrait" />
         
+        <!-- Face Recognition Activity -->
+        <activity
+            android:name=".ui.FaceRecognitionActivity"
+            android:exported="false"
+            android:label="Kenali Wajah"
+            android:screenOrientation="portrait" />
+
+        <!-- Manage Faces Activity -->
+        <activity
+            android:name=".ui.ManageFacesActivity"
+            android:exported="false"
+            android:label="Kelola Wajah" />
+
+        <!-- Add Face Activity (Camera-based interactive scanner) -->
+        <activity
+            android:name=".ui.AddFaceActivity"
+            android:exported="false"
+            android:label="Daftarkan Wajah"
+            android:screenOrientation="portrait" />
+        
         <!-- Safe Zones Management -->
         <activity
             android:name=".ui.SafeZonesActivity"

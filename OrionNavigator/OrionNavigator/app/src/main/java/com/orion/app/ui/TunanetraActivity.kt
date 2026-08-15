@@ -52,6 +52,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var cardLiveLocation: MaterialCardView
     private lateinit var cardNavigation: MaterialCardView
     private lateinit var cardCameraAI: MaterialCardView
+    private lateinit var cardFaceRecognition: MaterialCardView
     private lateinit var btnLogout: ImageButton
     private lateinit var btnSettings: ImageButton
     private lateinit var btnMic: ImageButton
@@ -132,6 +133,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         cardLiveLocation = findViewById(R.id.cardLiveLocation)
         cardNavigation = findViewById(R.id.cardNavigation)
         cardCameraAI = findViewById(R.id.cardCameraAI)
+        cardFaceRecognition = findViewById(R.id.cardFaceRecognition)
         btnLogout = findViewById(R.id.btnLogout)
         btnSettings = findViewById(R.id.btnSettings)
         btnMic = findViewById(R.id.btnMic)
@@ -231,6 +233,8 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             VoiceIntent.OPEN_LIVE_LOCATION,
             VoiceIntent.OPEN_NAVIGATION,
             VoiceIntent.OPEN_CAMERA,
+            VoiceIntent.OPEN_FACE_RECOGNITION,
+            VoiceIntent.IDENTIFY_PERSON,
             VoiceIntent.CHECK_LOCATION,
             VoiceIntent.LOGOUT,
             VoiceIntent.GO_BACK,
@@ -257,6 +261,12 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 speakAndNavigate(
                     getString(R.string.feature_camera_ai),
                     CameraAIActivity::class.java
+                )
+            }
+            VoiceIntent.OPEN_FACE_RECOGNITION, VoiceIntent.IDENTIFY_PERSON -> {
+                speakAndNavigate(
+                    "Kenali Wajah",
+                    FaceRecognitionActivity::class.java
                 )
             }
             VoiceIntent.CHECK_LOCATION -> {
@@ -289,6 +299,7 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         speak("Ucapkan Hello Orion diikuti perintah. " +
                 "Perintah yang tersedia: " +
                 "Buka kamera, untuk membuka kamera AI. " +
+                "Buka wajah, untuk membuka kenali wajah. " +
                 "Buka navigasi, untuk navigasi kamera AR. " +
                 "Buka lokasi, untuk berbagi lokasi. " +
                 "Di mana saya, untuk cek lokasi saat ini. " +
@@ -416,6 +427,15 @@ class TunanetraActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             speakAndNavigate(
                 getString(R.string.feature_camera_ai),
                 CameraAIActivity::class.java
+            )
+        }
+
+        // Face Recognition card
+        cardFaceRecognition.setOnClickListener {
+            vibrate()
+            speakAndNavigate(
+                "Kenali Wajah",
+                FaceRecognitionActivity::class.java
             )
         }
         

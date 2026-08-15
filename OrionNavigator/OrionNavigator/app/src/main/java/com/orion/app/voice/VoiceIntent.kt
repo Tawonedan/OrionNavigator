@@ -9,7 +9,11 @@ enum class VoiceIntent {
     OPEN_LIVE_LOCATION,
     OPEN_NAVIGATION,
     OPEN_CAMERA,
+    OPEN_FACE_RECOGNITION,
     LOGOUT,
+
+    // Face Recognition commands
+    IDENTIFY_PERSON,
 
     // Camera AI commands
     DESCRIBE_SCENE,

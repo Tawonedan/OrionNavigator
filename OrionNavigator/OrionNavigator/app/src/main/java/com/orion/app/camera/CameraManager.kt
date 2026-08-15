@@ -27,6 +27,9 @@ class CameraManager(
     private var imageAnalyzer: ImageAnalysis? = null
     private var cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
 
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var currentAnalyzerCallback: ((androidx.camera.core.ImageProxy) -> Unit)? = null
+
     /**
      * Start the camera with preview and optional image analysis
      */
@@ -34,6 +37,7 @@ class CameraManager(
         onAnalyze: ((androidx.camera.core.ImageProxy) -> Unit)? = null,
         onError: (Exception) -> Unit
     ) {
+        currentAnalyzerCallback = onAnalyze
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 
         cameraProviderFuture.addListener({
@@ -47,6 +51,28 @@ class CameraManager(
             }
         }, ContextCompat.getMainExecutor(context))
     }
+
+    /**
+     * Flip between front and back camera
+     * @return true if front camera is now active, false if back camera
+     */
+    fun flipCamera(onError: (Exception) -> Unit = {}): Boolean {
+        cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        } else {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        }
+        try {
+            bindCameraUseCases(currentAnalyzerCallback)
+            return cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to flip camera", e)
+            onError(e)
+            return cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
+        }
+    }
+
+    fun isFrontFacing(): Boolean = cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
 
     /**
      * Determine the best aspect ratio based on device screen dimensions.
@@ -95,9 +121,6 @@ class CameraManager(
                 }
             }
 
-        // Select back camera
-        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
         try {
             // Bind use cases to lifecycle
             if (onAnalyze != null && imageAnalyzer != null) {
@@ -114,7 +137,7 @@ class CameraManager(
                     preview
                 )
             }
-            Log.d(TAG, "Camera use cases bound")
+            Log.d(TAG, "Camera use cases bound (frontFacing=${cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA})")
         } catch (e: Exception) {
             Log.e(TAG, "Use case binding failed", e)
             throw e

@@ -572,6 +572,18 @@ class VoiceCommandManager(
             ) to VoiceIntent.OPEN_CAMERA,
 
             listOf(
+                "buka kenali wajah", "kenali wajah", "buka wajah", "deteksi wajah",
+                "buka deteksi wajah", "pengenalan wajah", "buka face recognition",
+                "fitur wajah", "face recognition", "kenali orang"
+            ) to VoiceIntent.OPEN_FACE_RECOGNITION,
+
+            listOf(
+                "siapa di depan saya", "siapa ini", "siapa orang ini", "siapa di depan",
+                "ada siapa di depan", "siapa yang ada di depan", "cek orang", "siapa dia",
+                "who is this", "who is in front of me", "kenal orang ini"
+            ) to VoiceIntent.IDENTIFY_PERSON,
+
+            listOf(
                 "keluar", "logout", "log out", "keluar akun", "sign out"
             ) to VoiceIntent.LOGOUT,
 

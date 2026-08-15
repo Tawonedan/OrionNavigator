@@ -23,6 +23,7 @@ class PendampingHomeActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
 
     private lateinit var cardLiveLocation: MaterialCardView
     private lateinit var cardCreateMap: MaterialCardView
+    private lateinit var cardManageFaces: MaterialCardView
     private lateinit var btnLogout: ImageButton
 
     private var tts: TextToSpeech? = null
@@ -41,6 +42,7 @@ class PendampingHomeActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
     private fun initViews() {
         cardLiveLocation = findViewById(R.id.cardLiveLocation)
         cardCreateMap = findViewById(R.id.cardCreateMap)
+        cardManageFaces = findViewById(R.id.cardManageFaces)
         btnLogout = findViewById(R.id.btnLogout)
     }
 
@@ -56,7 +58,7 @@ class PendampingHomeActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
                 .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH)
                 .build()
             tts?.setAudioAttributes(audioAttributes)
-            tts?.speak("Menu Pendamping. Pilih Live Lokasi atau Buat Peta A R.", TextToSpeech.QUEUE_FLUSH, null, "welcome")
+            tts?.speak("Menu Pendamping. Pilih Live Lokasi, Buat Peta A R, atau Kelola Wajah.", TextToSpeech.QUEUE_FLUSH, null, "welcome")
         }
     }
 
@@ -75,6 +77,12 @@ class PendampingHomeActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
             vibrate()
             val intent = Intent(this, DirectionActivity::class.java)
             intent.putExtra("EXTRA_APP_MODE", "MAP")
+            startActivity(intent)
+        }
+
+        cardManageFaces.setOnClickListener {
+            vibrate()
+            val intent = Intent(this, ManageFacesActivity::class.java)
             startActivity(intent)
         }
 

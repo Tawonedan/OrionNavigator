@@ -5,6 +5,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("io.objectbox")
 }
 
 // Allow reading API Key from local.properties
@@ -98,6 +99,12 @@ dependencies {
     implementation("org.tensorflow:tensorflow-lite:2.14.0")
     implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
     
+    // Face Recognition (ExecuTorch, MLKit, ObjectBox Vector DB)
+    implementation("org.pytorch:executorch-android:1.2.0")
+    implementation("com.google.mlkit:face-detection:16.1.7")
+    implementation("io.objectbox:objectbox-android:4.0.0")
+    implementation("io.objectbox:objectbox-kotlin:4.0.0")
+
     // ViewPager2 - for swipeable navigation/camera pages
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     

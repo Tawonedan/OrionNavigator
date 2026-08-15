@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.FaceRecognitionActivity">
+
+    <!-- CAMERA PREVIEW — full screen -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="Kamera Pengenal Wajah Aktif"
+        app:scaleType="fillCenter"
+        app:implementationMode="compatible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Custom Canvas Overlay for Face Bounding Boxes -->
+    <com.orion.app.face.ui.FaceDetectionOverlayView
+        android:id="@+id/faceOverlayView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintEnd_toEndOf="@id/previewView"
+        app:layout_constraintStart_toStartOf="@id/previewView"
+        app:layout_constraintTop_toTopOf="@id/previewView" />
+
+    <!-- Top dark vignette -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:background="@drawable/gradient_overlay_top"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Bottom glass panel -->
+    <View
+        android:id="@+id/overlayBottom"
+        android:layout_width="0dp"
+        android:layout_height="145dp"
+        android:background="@drawable/bg_glass_bottom_panel"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Title Label -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:importantForAccessibility="no"
+        android:letterSpacing="0.12"
+        android:text="KENALI WAJAH"
+        android:textColor="#DDFFFFFF"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Back button -->
+    <ImageButton
+        android:id="@+id/fabBack"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/bg_glass_fab"
+        android:contentDescription="Kembali"
+        android:padding="9dp"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Right Actions: Flip Camera, Manage Faces -->
+    <LinearLayout
+        android:id="@+id/layoutTopActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Flip Camera button -->
+        <ImageButton
+            android:id="@+id/fabFlipCamera"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_glass_fab"
+            android:contentDescription="Balik Kamera"
+            android:padding="9dp"
+            android:src="@drawable/ic_flip_camera"
+            app:tint="@color/white" />
+
+        <!-- Manage Faces / Add People list button -->
+        <ImageButton
+            android:id="@+id/fabManageFaces"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_glass_fab"
+            android:contentDescription="Kelola dan Tambah Wajah"
+            android:padding="9dp"
+            android:src="@drawable/ic_person"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <!-- Recognized Person Name Badge -->
+    <TextView
+        android:id="@+id/tvPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_glass_badge"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="8dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:minHeight="44dp"
+        android:accessibilityLiveRegion="assertive"
+        app:layout_constraintBottom_toTopOf="@id/tvStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Budi (88%)"
+        tools:visibility="visible" />
+
+    <!-- Status Text -->
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="Mengarahkan kamera untuk mengenali wajah..."
+        android:textColor="#CCFFFFFF"
+        android:textSize="13sp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@id/layoutBottomButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Loading indicator -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:indeterminateTint="#AAFFFFFF"
+        android:visibility="gone"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@id/tvStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Bottom Buttons Row -->
+    <LinearLayout
+        android:id="@+id/layoutBottomButtons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="14dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Wake Word toggle -->
+        <ImageButton
+            android:id="@+id/btnWakeWord"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_glass_fab"
+            android:contentDescription="Aktifkan Hello Orion"
+            android:padding="9dp"
+            android:src="@drawable/ic_wakeword_off"
+            app:tint="@android:color/white" />
+
+        <!-- Direct Mic button -->
+        <ImageButton
+            android:id="@+id/fabMic"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_glass_fab"
+            android:contentDescription="Bicara langsung"
+            android:padding="12dp"
+            android:src="@drawable/ic_mic"
+            app:tint="@android:color/white" />
+
+        <!-- Siapa Ini (Identify) Button -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabIdentify"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Siapa Ini?"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-medium"
+            android:contentDescription="Siapa di depan saya"
+            app:icon="@drawable/ic_face_recognition"
+            app:iconTint="@color/white"
+            app:backgroundTint="#CC1565C0"
+            app:cornerRadius="24dp" />
+
+        <!-- Sound toggle -->
+        <ImageButton
+            android:id="@+id/fabSound"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_glass_fab"
+            android:contentDescription="Beralih Suara"
+            android:padding="12dp"
+            android:src="@drawable/ic_volume_on"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <!-- PERMISSION DENIED VIEW -->
+    <LinearLayout
+        android:id="@+id/layoutPermissionDenied"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_gradient_blue_white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_beacon_panel"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_camera_off"
+                android:importantForAccessibility="no"
+                app:tint="#AAFFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Izin kamera diperlukan untuk mengenali wajah"
+                android:textColor="#DDFFFFFF"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRequestPermission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:minHeight="48dp"
+                android:paddingHorizontal="32dp"
+                android:text="Berikan Izin"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:backgroundTint="#CC1565C0"
+                app:strokeColor="#80FFFFFF"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

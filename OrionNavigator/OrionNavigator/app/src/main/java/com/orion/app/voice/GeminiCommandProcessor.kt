@@ -74,6 +74,8 @@ Penjelasan intent:
 - OPEN_LIVE_LOCATION: Buka fitur berbagi lokasi
 - OPEN_NAVIGATION: Buka fitur navigasi kompas
 - OPEN_CAMERA: Buka fitur kamera AI / deteksi objek
+- OPEN_FACE_RECOGNITION: Buka fitur pengenalan wajah / kenali wajah
+- IDENTIFY_PERSON: Tanya siapa yang ada di depan kamera / kenali orang di depan saya
 - DESCRIBE_SCENE: Minta deskripsi apa yang ada di depan kamera
 - TOGGLE_SOUND_ON: Nyalakan suara
 - TOGGLE_SOUND_OFF: Matikan suara

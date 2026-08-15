@@ -431,7 +431,8 @@
             android:id="@+id/cardCameraAI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="72dp"
+            android:minHeight="68dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="18dp"
@@ -447,14 +448,14 @@
                 android:orientation="horizontal"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:paddingTop="14dp"
-                android:paddingBottom="14dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:gravity="center_vertical"
                 android:importantForAccessibility="no">
 
                 <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:background="@drawable/bg_status_active"
                     android:layout_marginEnd="16dp"
                     android:importantForAccessibility="no">
@@ -479,7 +480,7 @@
                         android:layout_height="wrap_content"
                         android:text="Kamera AI"
                         android:textColor="#1565C0"
-                        android:textSize="17sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:importantForAccessibility="no" />
                     <TextView
@@ -488,7 +489,85 @@
                         android:layout_marginTop="2dp"
                         android:text="Deteksi objek menggunakan kamera"
                         android:textColor="#666666"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
+                        android:importantForAccessibility="no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_back"
+                    android:contentDescription=""
+                    android:importantForAccessibility="no"
+                    android:rotation="180"
+                    app:tint="#CCCCCC" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CARD: Kenali Wajah -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFaceRecognition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="68dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#DDFFFFFF"
+            app:strokeColor="#50FFFFFF"
+            app:strokeWidth="1dp"
+            android:contentDescription="Kenali Wajah. Identifikasi orang dan keluarga di depan Anda">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:gravity="center_vertical"
+                android:importantForAccessibility="no">
+
+                <FrameLayout
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/bg_status_active"
+                    android:layout_marginEnd="16dp"
+                    android:importantForAccessibility="no">
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_face_recognition"
+                        android:contentDescription=""
+                        android:importantForAccessibility="no"
+                        app:tint="#FFFFFF" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:importantForAccessibility="no">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kenali Wajah"
+                        android:textColor="#1565C0"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:importantForAccessibility="no" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Identifikasi orang di depan Anda"
+                        android:textColor="#666666"
+                        android:textSize="11sp"
                         android:importantForAccessibility="no" />
                 </LinearLayout>
 

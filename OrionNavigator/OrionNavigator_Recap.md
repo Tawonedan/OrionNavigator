@@ -7,11 +7,18 @@
 
 ## 📖 1. Ikhtisar Aplikasi (App Overview)
 
-**Orion Navigator** adalah ekosistem aplikasi Android pintar yang dirancang khusus untuk memandu dan menjaga keselamatan pengguna tunanetra (*visually impaired users*). Aplikasi ini menggabungkan navigasi spasial indoor berbasis **Augmented Reality (AR)**, pemantauan lokasi jarak jauh (**Live Location**) bagi caregiver/orang tua, serta penglihatan komputer cerdas (**Kamera AI & Computer Vision**) untuk deteksi rintangan real-time.
+**Orion Navigator** adalah ekosistem aplikasi Android pintar yang dirancang khusus untuk memandu dan menjaga keselamatan pengguna tunanetra (*visually impaired users*). Aplikasi ini menggabungkan navigasi spasial indoor berbasis **Augmented Reality (ARCore)**, pemantauan lokasi jarak jauh (**Live Location**) bagi caregiver/orang tua, penglihatan komputer cerdas (**Kamera AI & Computer Vision**) untuk deteksi rintangan real-time, serta **Pengenalan Wajah On-Device (Face Recognition & Anti-Spoofing)** berbasis Vector Database untuk mengidentifikasi orang di sekitar pengguna secara instan dan aman.
 
 Aplikasi mendukung **Dual-Role System**:
-1. **User Tunanetra (Child):** Antarmuka utama berbasis **Audio-First & Accessible Design**, didukung oleh **Sistem Perintah Suara 3-Layer (Voice Command System)**, gesture sederhana, dan sintesis **Text-to-Speech (TTS)** Bahasa Indonesia.
-2. **User Pendamping / Caregiver (Parent):** Hub khusus (`PendampingHomeActivity`) yang menyediakan dua modul utama: **Pemantauan Live Location** (via OpenStreetMap) dan **Pembuatan Peta AR (AR Map Authoring)** untuk memindai ruangan, menempatkan penanda 3D, dan menyambungkan jalur rute navigasi.
+1. **User Tunanetra (Child):** Antarmuka utama berbasis **Audio-First & Accessible Design**, didukung oleh **Sistem Perintah Suara 3-Layer (Voice Command System)**, gesture sederhana, dan sintesis **Text-to-Speech (TTS)** Bahasa Indonesia. Tunanetra memiliki akses ke 4 fitur pilar:
+   - **Live Location Sharing:** Berbagi lokasi real-time dengan orang tua/pendamping.
+   - **Navigasi 3D AR Spasial:** Panduan jalur indoor 6DoF menggunakan kamera ARCore dan algoritma Dijkstra.
+   - **Kamera AI & Vision:** Deteksi rintangan real-time (YOLOv8) dan deskripsi pemandangan generatif (Google Gemini Vision).
+   - **Kenali Wajah (Face Recognition):** Identifikasi instan anggota keluarga, teman, atau pendamping dengan verifikasi anti-spoofing dan basis data vektor lokal.
+2. **User Pendamping / Caregiver (Parent):** Hub khusus (`PendampingHomeActivity`) yang menyediakan 3 modul utama:
+   - **Pemantauan Live Location:** Peta interaktif OpenStreetMap (OSMDroid) dengan batas geofencing aman (*Safe Zones*).
+   - **Pembuatan Peta AR (AR Map Authoring):** Memindai ruangan, menempatkan penanda 3D (*Waypoints*), dan menyambungkan jalur rute navigasi (*Walkable Paths*).
+   - **Kelola Wajah (Face Data Management):** Mendaftarkan foto wajah keluarga/kerabat melalui pemindaian kamera interaktif atau galeri, serta mengelola basis data vektor wajah lokal.
 
 ---
 
@@ -20,7 +27,7 @@ Aplikasi mendukung **Dual-Role System**:
 ### 👥 Konsep & Tujuan Fitur
 Fitur **Live Location** memungkinkan pengguna tunanetra (*Child*) membagikan lokasi geografis mereka secara real-time kepada pendamping/orang tua (*Parent/Caregiver*). Fitur ini berfokus pada **keamanan, privasi, dan persetujuan 1-to-1**, dilengkapi dengan sistem **Geofencing (Safe Zones)** untuk memberi peringatan otomatis saat pengguna keluar dari area aman yang ditentukan.
 
-Caregiver diakses melalui **Pendamping Home Screen (`PendampingHomeActivity.kt`)**, yang memisahkan pemantauan lokasi luar ruangan dan modul pembuatan peta indoor.
+Caregiver mengakses sistem melalui **Pendamping Home Screen (`PendampingHomeActivity.kt`)**, yang menyediakan akses terpadu ke modul pemantauan lokasi, pembuatan peta indoor AR, dan manajemen pendaftaran wajah.
 
 ```
 [User Tunanetra (Child)]
@@ -33,15 +40,16 @@ Caregiver diakses melalui **Pendamping Home Screen (`PendampingHomeActivity.kt`)
        ▲
        │ (Subscribe & Real-time Stream Updates)
        │
-[Caregiver Hub (PendampingHomeActivity)] ──► 1. Pemantauan Live Location (OSMDroid)
-                                           └──► 2. Pembuatan Peta AR (DirectionActivity MAP Mode)
+[Caregiver Hub (PendampingHomeActivity)] ──► 1. Pemantauan Live Location (OSMDroid + Safe Zones)
+                                           ├──► 2. Pembuatan Peta AR (DirectionActivity MAP Mode)
+                                           └──► 3. Kelola Wajah (ManageFacesActivity + ObjectBox DB)
 ```
 
 ### 🛠️ Detail Teknis (Libraries, Dependencies & Concepts)
 
 1. **Hub Utama Pendamping (PendampingHomeActivity.kt)**
    - **Komponen Teknis:** `PendampingHomeActivity.kt`, `RoleSelectionActivity.kt`, `SplashActivity.kt`
-   - **Konsep:** Menu navigasi utama untuk peran Pendamping. Alur autentikasi/role mengarahkan Pendamping ke hub ini untuk memilih antara pemantauan peta live (`PendampingActivity`) atau pembuatan/pemetaan rute AR baru (`DirectionActivity` dengan `EXTRA_APP_MODE = "MAP"`).
+   - **Konsep:** Menu navigasi utama untuk peran Pendamping. Alur autentikasi/role mengarahkan Pendamping ke hub ini untuk memilih antara pemantauan peta live (`LiveLocationParentActivity`), pembuatan/pemetaan rute AR baru (`DirectionActivity` dengan `EXTRA_APP_MODE = "MAP"`), atau pendaftaran data wajah keluarga (`ManageFacesActivity`).
 
 2. **Peta Base Layer (OSMDroid / OpenStreetMap)**
    - **Dependency:** `org.osmdroid:osmdroid-android:6.1.17`
@@ -151,10 +159,12 @@ Fitur **AI Camera** bertindak sebagai "mata digital" bagi tunanetra. Fitur ini m
      - **Model YOLOv8 (You Only Look Once):** Menggunakan model deteksi objek YOLOv8 terkuantisasi (`yolov8n_float32.tflite` / `float16`) yang berjalan secara offline di *on-device NPU/CPU*.
      - **Post-Processing (NMS):** Menerapkan algoritma *Non-Maximum Suppression* (NMS) dan persentase *IoU (Intersection over Union)* untuk memfilter kotak deteksi ganda dan menyajikan label dengan tingkat keyakinan (*confidence threshold*) terbaik.
 
-2. **Aliran Video Berkinerja Tinggi (Android CameraX SDK)**
+2. **Aliran Video Berkinerja Tinggi & Flip Camera (Android CameraX SDK)**
    - **Dependencies:** `androidx.camera:camera-core:1.2.3`, `camera-camera2`, `camera-lifecycle`, `camera-view`
    - **Komponen Teknis:** `CameraManager.kt`
-   - **Konsep:** Menggunakan `ImageAnalysis.Analyzer` dari CameraX dengan skema *Frame Skipping* (memproses 1 dari tiap 5 frame) untuk menjaga performa perangkat tetap dingin, mencegah *memory leak*, dan menghindari kelebihan beban CPU/GPU.
+   - **Konsep:** 
+     - Menggunakan `ImageAnalysis.Analyzer` dari CameraX dengan skema *Frame Skipping* untuk menjaga performa perangkat tetap dingin dan responsif.
+     - **Flip Camera Support:** Modul `CameraManager.kt` dilengkapi method `flipCamera()` dan `isFrontFacing()` untuk beralih mulus antara kamera belakang (*back camera*) dan kamera depan (*front/selfie camera*).
 
 3. **Overlay Bounding Box & Translasi Label**
    - **Komponen Teknis:** `DetectionOverlayView.kt` / Custom Canvas Bounding Box
@@ -162,11 +172,99 @@ Fitur **AI Camera** bertindak sebagai "mata digital" bagi tunanetra. Fitur ini m
 
 4. **Kecerdasan Buatan Generatif (Google Gemini Vision API)**
    - **Komponen Teknis:** `GeminiHelper.kt`
-   - **Konsep:** Ketika pengguna menekan tombol atau mengucapkan perintah *"Jelaskan"*, frame Bitmap terbaru dikirim ke **Google Gemini REST API** via Kotlin Coroutines. Gemini menganalisis konteks penuh gambar dan menghasilkan narasi pemandangan komprehensif dalam Bahasa Indonesia (misal: *"Di depan Anda terdapat koridor dengan 2 buah kursi di sebelah kiri dan pintu terbuka di ujung jalan"*).
+   - **Konsep:** Ketika pengguna menekan tombol atau mengucapkan perintah *"Jelaskan"*, frame Bitmap terbaru dikirim ke **Google Gemini REST API** via Kotlin Coroutines. Gemini menganalisis konteks penuh gambar dan menghasilkan narasi pemandangan komprehensif dalam Bahasa Indonesia.
 
 ---
 
-## 🎙️ 5. Fitur Suplemen Utama: Sistem Perintah Suara & Asisten Aksesibilitas (Voice Command System)
+## 👤 5. Fitur Utama 4: Pengenalan Wajah On-Device & Anti-Spoofing (Face Recognition & Vector Search)
+
+### 👥 Konsep & Tujuan Fitur
+Fitur **Face Recognition** memungkinkan pengguna tunanetra mengenali identitas orang di hadapannya (keluarga, teman, atau pendamping) secara instan, mandiri, dan 100% offline (*on-device Edge AI*). Sistem ini mengintegrasikan deteksi wajah real-time, ekstraksi vektor embedding 512D berbasis **PyTorch ExecuTorch FaceNet**, perlindungan dari pemalsuan wajah (**Dual-Scale Silent-Face Anti-Spoofing**), serta pencarian kemiripan kosinus instan menggunakan basis data vektor **ObjectBox Vector Search (HNSW Index)**.
+
+```
+[CameraX Live Stream (Front/Back)]
+                │
+                ▼ (NV21 to Bitmap + Rotation Correction)
+[Google ML Kit Face Detector] ──► Face Bounding Box & Pose (Euler Yaw/Pitch/Center)
+                │
+        ┌───────┴───────────────────────────────┐
+        ▼                                       ▼
+[PyTorch ExecuTorch FaceNet]           [Dual-Scale FASNet Anti-Spoofing]
+(Extract 512D Float Embedding)         (TFLite Scale 2.7x & 4.0x Softmax Fusion)
+        │                                       │
+        ▼                                       ▼
+[ObjectBox Vector DB (HNSW Index)]      [Liveness Validation: Real vs Spoof]
+(Nearest Neighbor Cosine Search >0.55)          │
+        │                                       │
+        └───────────────────┬───────────────────┘
+                            ▼
+        [Face Recognition Output & Accessibility Feedback]
+          ├── Canvas Visual Overlay (Green=Known, Orange=Unknown, Red=Spoof)
+          ├── Debounced TTS Announcement ("Ada [Nama] di depan Anda")
+          ├── Haptic Pulse Vibration on Match
+          └── Voice Command Trigger ("Siapa ini?")
+```
+
+### 🛠️ Detail Teknis (Libraries, Dependencies & Concepts)
+
+1. **Deteksi Wajah Real-Time & Estimasi Pose (Google ML Kit Face Detection)**
+   - **Dependency:** `com.google.mlkit:face-detection:16.1.7`
+   - **Komponen Teknis:** `MLKitFaceDetector.kt`, `BaseFaceDetector.kt`
+   - **Konsep:** 
+     - **Dual Performance Mode:** Menggunakan `PERFORMANCE_MODE_FAST` untuk streaming frame kamera secara *live* dan `PERFORMANCE_MODE_ACCURATE` untuk pemindaian gambar statis beresolusi tinggi saat pendaftaran wajah.
+     - **Face Pose & Alignment Estimation (`getFacePose`):** Mengevaluasi sudut rotasi kepala (Euler Yaw & Pitch < 15°), rasio lebar wajah terhadap frame (25% - 85%), serta pemusatan koordinat (*centering*) untuk menjamin kualitas sampel foto saat pendaftaran wajah.
+
+2. **Ekstraksi Fitur Vektor Wajah 512D On-Device (PyTorch ExecuTorch & FaceNet)**
+   - **Dependency:** `org.pytorch:executorch-android:1.2.0`
+   - **Model Binary:** `model.pte` (FaceNet ExecuTorch module di folder `assets/`)
+   - **Komponen Teknis:** `FaceNet.kt`
+   - **Konsep:** 
+     - Memproses potongan wajah berukuran 160x160 piksel RGB dan mengekstrak representasi fitur wajah berdimensi 512 (`Tensor.fromBlob(1, 160, 160, 3)`).
+     - Berjalan langsung di atas runtime **ExecuTorch**, runtime komputasi AI on-device terbaru dari PyTorch yang dioptimalkan untuk performa tinggi dan konsumsi memori/daya yang sangat hemat pada arsitektur ARM Android.
+
+3. **Deteksi Keaslian Wajah & Anti-Spoofing (Dual-Scale Silent-Face FASNet)**
+   - **Dependencies:** `org.tensorflow:tensorflow-lite:2.14.0` & `org.tensorflow:tensorflow-lite-support:0.4.4`
+   - **Model Binaries:** `spoof_model_scale_2_7.tflite` & `spoof_model_scale_4_0.tflite`
+   - **Komponen Teknis:** `FaceSpoofDetector.kt`
+   - **Konsep:** 
+     - Mencegah serangan pemalsuan identitas (*presentation attacks*) menggunakan foto cetak atau layar HP/tablet.
+     - Menggunakan arsitektur FASNet dual-scale dengan memotong area wajah pada dua skala pembesaran berbeda (**Scale 2.7x** untuk detail kontur dan **Scale 4.0x** untuk konteks batas tepi).
+     - Mengonversi citra ke format BGR 80x80 piksel, mengeksekusi kedua model TFLite secara multi-thread (4 threads), dan menggabungkan probabilitas output melalui fungsi *Softmax Fusion*.
+
+4. **Basis Data Vektor Lokal & Pencarian Kemiripan (ObjectBox Vector Search & HNSW Index)**
+   - **Dependencies:** `io.objectbox:objectbox-android:4.0.0` & `io.objectbox:objectbox-kotlin:4.0.0` (Gradle Plugin `io.objectbox:4.0.0`)
+   - **Komponen Teknis:** `DataModels.kt` (`FaceImageRecord`, `PersonRecord`, `RecognitionMetrics`), `ImagesVectorDB.kt`, `PersonDB.kt`, `ObjectBoxStore.kt`
+   - **Konsep:** 
+     - **HNSW Vector Index:** Entitas `FaceImageRecord` memanfaatkan indeks vektor bawaan ObjectBox dengan anotasi `@HnswIndex(dimensions = 512, distanceType = VectorDistanceType.COSINE)`.
+     - **Pencarian Nearest Neighbor Instan:** Menemukan rekaman wajah terdekat dengan latensi < 10ms menggunakan kueri `FaceImageRecord_.faceEmbedding.nearestNeighbors(embedding, 10)`.
+     - **Thresholding Kosinus:** Kecocokan dikonfirmasi jika *Cosine Similarity* melampaui batas ambang keyakinan (default > 0.55 / 55%).
+     - **Kaskade Penghapusan Data:** Menghapus entitas `PersonRecord` secara otomatis membersihkan seluruh vektor embedding terkait di `ImagesVectorDB`.
+
+5. **Antarmuka Interaktif Pendaftaran Wajah (AddFaceActivity.kt)**
+   - **Komponen Teknis:** `AddFaceActivity.kt`, `activity_add_face.xml`
+   - **Konsep:** 
+     - **Panduan Suara Berkelanjutan:** Memberi instruksi suara real-time (*"Wajah belum di tengah"*, *"Terlalu jauh, dekatkan ponsel"*, *"Harap menghadap lurus"*).
+     - **Indikator Kualitas Dinamis:** Menghitung skor kualitas wajah (0% hingga 100%). Ketika kualitas mencapai 100% dan lolos uji anti-spoofing, sistem secara otomatis menangkap frame (*Auto-Capture*) dan menyimpannya ke basis data vektor.
+     - **Pendaftaran Fleksibel:** Menyediakan opsi pendaftaran manual (*Snap Now*), pembalik kamera depan/belakang (*Flip Camera*), serta impor foto dari galeri HP (*Gallery Import*).
+
+6. **Antarmuka Pengenalan Wajah Real-Time Tunanetra (FaceRecognitionActivity.kt)**
+   - **Komponen Teknis:** `FaceRecognitionActivity.kt`, `FaceDetectionOverlayView.kt`, `activity_face_recognition.xml`
+   - **Konsep:** 
+     - **Visual Overlay Dinamis:** Menggambar kotak deteksi berstatus:
+       - **Hijau (`#00E676`):** Wajah terdaftar dikenali beserta nama dan persentase keyakinan.
+       - **Oranye (`#FF9100`):** Wajah terdeteksi namun belum terdaftar di basis data.
+       - **Merah (`#FF1744`):** Wajah terdeteksi sebagai serangan palsu (*Spoof Attack*).
+     - **Debounce TTS Announcement:** Menerapkan jeda cooldown 4 detik per individu teridentifikasi (`DEBOUNCE_COOLDOWN_MS = 4000L`) agar suara pengumuman tidak bertabrakan atau berulang secara berlebihan.
+     - **Umpan Balik Haptik:** Memberikan getaran singkat (*Haptic Pulse*) saat seseorang berhasil dikenali.
+     - **Integrasi Perintah Suara:** Pengguna dapat menekan tombol mic atau mengucap *"Hello Orion, siapa di depan saya?"* untuk verifikasi langsung.
+
+7. **Manajemen Daftar Wajah Terdaftar (ManageFacesActivity.kt)**
+   - **Komponen Teknis:** `ManageFacesActivity.kt`, `PersonListAdapter.kt`, `activity_manage_faces.xml`, `item_person_card.xml`
+   - **Konsep:** Layar khusus bagi pendamping untuk melihat seluruh daftar orang yang terdaftar, melihat tanggal penambahan, menambah wajah baru, serta menghapus data wajah dengan dialog konfirmasi yang aman. Perubahan data dipantau secara reaktif menggunakan Kotlin `Flow`.
+
+---
+
+## 🎙️ 6. Fitur Suplemen Utama: Sistem Perintah Suara & Asisten Aksesibilitas (Voice Command System)
 
 ### 🗣️ Konsep & Tujuan Fitur
 Untuk memastikan antarmuka 100% ramah tunanetra, seluruh aktivitas utama dalam Orion Navigator diselaraskan dengan **Voice Command System**. Pengguna tidak perlu melihat atau menyentuh tombol di layar, melainkan cukup mengendalikan aplikasi menggunakan suara.
@@ -195,20 +293,23 @@ Untuk memastikan antarmuka 100% ramah tunanetra, seluruh aktivitas utama dalam O
    - **Layer 1: Passive Wake Word Listener ("Hello Orion / Halo Orion")**
      - Mendengarkan secara pasif di latar belakang. Menggunakan algoritma matching jarak string **Levenshtein Distance** (*fuzzy matching*) untuk mengenali puluhan variasi pengucapan wake word (misal: "Halo Orion", "Hey Orion", "Halo Oreo", "Hello Rian") tanpa terpengaruh aksen.
    - **Layer 2: Instant Offline Keyword Matching**
-     - Mencocokkan teks ucapan secara offline dengan kamus kata kunci lokal (`matchKeyword()`). Mengeksekusi perintah instan dengan latensi < 50ms untuk fungsi standar seperti:
+     - Mencocokkan teks ucapan secara offline dengan kamus kata kunci lokal (`matchKeyword()`). Mengeksekusi perintah instan dengan latensi < 50ms untuk seluruh fitur inti:
        - *"Buka Navigasi"* (`VoiceIntent.OPEN_NAVIGATION`)
        - *"Buka Kamera"* (`VoiceIntent.OPEN_CAMERA`)
-       - *"Dimana saya"* (`VoiceIntent.CHECK_LOCATION`)
+       - *"Buka Wajah / Kenali Wajah / Deteksi Wajah"* (`VoiceIntent.OPEN_FACE_RECOGNITION`)
+       - *"Siapa di depan saya / Siapa ini / Cek orang"* (`VoiceIntent.IDENTIFY_PERSON`)
+       - *"Dimana saya / Buka Lokasi"* (`VoiceIntent.CHECK_LOCATION` / `VoiceIntent.OPEN_LIVE_LOCATION`)
        - *"Jelaskan"* (`VoiceIntent.DESCRIBE_SCENE`)
        - *"Suara Mati / Suara Hidup"* (`VoiceIntent.TOGGLE_SOUND_OFF / ON`)
+       - *"Kembali / Keluar"* (`VoiceIntent.GO_BACK` / `VoiceIntent.LOGOUT`)
    - **Layer 3: Gemini NLU Fallback (Natural Language Understanding)**
      - **Komponen Teknis:** `GeminiCommandProcessor.kt`
-     - Jika kata yang diucapkan kompleks atau bermakna ganda (misal: *"tolong bimbing saya jalan menuju ke toilet pria"*), input dikirim ke Google Gemini API dengan prompt klasifikasi intent untuk mengekstrak maksud pengguna secara cerdas.
+     - Jika ucapan pengguna bernada natural, panjang, atau bermakna ganda (misal: *"tolong lihat siapa orang yang sedang berdiri di depanku"*), input teks dikirim ke Google Gemini API dengan prompt klasifikasi intent untuk mengekstrak maksud pengguna secara cerdas ke salah satu enum `VoiceIntent`.
 
 3. **Output Auditori (Text-To-Speech / TTS Manager)**
    - **API Native:** `android.speech.tts.TextToSpeech`
    - **Komponen Teknis:** `TTSManager.kt`
-   - **Konsep:** Menyuarakan semua respon, instruksi navigasi, dan hasil deteksi objek menggunakan Bahasa Indonesia (`Locale("id", "ID")`). Menerapkan skema *Debounce & Priority Queue* agar instruksi keselamatan tidak terpotong oleh suara pembacaan objek sekunder.
+   - **Konsep:** Menyuarakan semua respon, instruksi navigasi, pengenalan wajah, dan hasil deteksi rintangan menggunakan Bahasa Indonesia (`Locale("id", "ID")`). Menerapkan skema *Debounce & Priority Queue* agar instruksi keselamatan tidak terpotong oleh suara pembacaan objek sekunder.
 
 4. **Mekanisme Pencegahan Feedback Loop (TTS Audio Muting)**
    - **Komponen Teknis:** `pauseForTTS()` dan `resumeAfterTTS()` pada `VoiceCommandManager.kt`
@@ -216,16 +317,17 @@ Untuk memastikan antarmuka 100% ramah tunanetra, seluruh aktivitas utama dalam O
 
 ---
 
-## 📊 6. Tabel Rangkuman Arsitektur & Dependensi Utama
+## 📊 7. Tabel Rangkuman Arsitektur & Dependensi Utama
 
 | Fitur Utama | Modul / Kelas Utama | Dependensi / Library Utama | Konsep Teknis Utama |
 | :--- | :--- | :--- | :--- |
-| **Live Location & Caregiver Hub** | `PendampingHomeActivity`<br>`LiveLocationChildActivity`<br>`LiveLocationParentActivity`<br>`LocationUpdateService`<br>`LiveLocationRepository` | • `org.osmdroid:osmdroid-android:6.1.17`<br>• `play-services-location:21.0.1`<br>• `firebase-database-ktx`<br>• `firebase-auth-ktx` | Caregiver Hub (Live Location + Buat Peta AR), OpenStreetMap rendering map-agnostic, 1-to-1 code pairing, persistent Foreground Service, real-time Firebase DB sync, Haversine Geofencing. |
+| **Live Location & Caregiver Hub** | `PendampingHomeActivity`<br>`LiveLocationChildActivity`<br>`LiveLocationParentActivity`<br>`LocationUpdateService`<br>`LiveLocationRepository` | • `org.osmdroid:osmdroid-android:6.1.17`<br>• `play-services-location:21.0.1`<br>• `firebase-database-ktx`<br>• `firebase-auth-ktx` | Caregiver Hub (Live Location, Buat Peta AR, Kelola Wajah), OpenStreetMap rendering map-agnostic, 1-to-1 code pairing, persistent Foreground Service, real-time Firebase DB sync, Haversine Geofencing. |
 | **3D AR Navigation & Authoring** | `DirectionActivity`<br>`IndoorNavigationManager`<br>`CompassManager`<br>`WaypointRepository`<br>`GraphPersistence.kt`<br>`Dijkstra.kt` | • `com.google.ar:core:1.54.0`<br>• `de.javagl:obj:0.4.0`<br>• Custom OpenGL ES 3.0 Shaders<br>• Android Hardware SensorManager | 6DoF Visual-Inertial Odometry, 100% ARCore (Depresiasi BLE), Penempatan Waypoint via visual Crosshair, Dialog penyambung rute walkable path interaktif, Custom OpenGL 3D path spheres rendering, Dijkstra shortest-path algorithm. |
-| **AI Camera** | `CameraAIActivity`<br>`CameraManager`<br>`YoloDetectorHelper`<br>`GeminiHelper` | • `tensorflow-lite:2.14.0`<br>• `tensorflow-lite-support:0.4.4`<br>• `androidx.camera:camera-*:1.2.3`<br>• Google Gemini Vision API | On-device YOLOv8 object detection (TFLite), CameraX frame skipping analysis, NMS post-processing, Generative Vision AI for scene description. |
-| **Voice Command** | `VoiceCommandManager`<br>`VoiceIntent`<br>`GeminiCommandProcessor`<br>`TTSManager` | • `android.speech.SpeechRecognizer`<br>• `android.speech.tts.TextToSpeech`<br>• Google Gemini NLU REST API | 3-Layer Voice Architecture (Passive Fuzzy Wake Word, Instant Offline Keyword Matching, Gemini NLU Fallback), TTS Muting Feedback Prevention. |
+| **AI Camera** | `CameraAIActivity`<br>`CameraManager`<br>`YoloDetectorHelper`<br>`GeminiHelper` | • `tensorflow-lite:2.14.0`<br>• `tensorflow-lite-support:0.4.4`<br>• `androidx.camera:camera-*:1.2.3`<br>• Google Gemini Vision API | On-device YOLOv8 object detection (TFLite), CameraX frame analysis & Flip Camera support, NMS post-processing, Generative Vision AI for scene description. |
+| **Face Recognition & Anti-Spoofing** | `FaceRecognitionActivity`<br>`AddFaceActivity`<br>`ManageFacesActivity`<br>`FaceRecognitionHelper`<br>`MLKitFaceDetector`<br>`FaceNet`<br>`FaceSpoofDetector`<br>`ImagesVectorDB`<br>`PersonDB` | • `org.pytorch:executorch-android:1.2.0`<br>• `com.google.mlkit:face-detection:16.1.7`<br>• `io.objectbox:objectbox-android:4.0.0`<br>• `io.objectbox:objectbox-kotlin:4.0.0`<br>• `tensorflow-lite:2.14.0` | On-device PyTorch ExecuTorch FaceNet (512D embeddings), ML Kit Face Detection & Pose Quality Analysis, Dual-scale FASNet Anti-Spoofing (Scale 2.7x & 4.0x), ObjectBox Vector DB HNSW Cosine Search, Auto-capture guided enrollment, Debounced TTS announcements & haptic pulse. |
+| **Voice Command** | `VoiceCommandManager`<br>`VoiceIntent`<br>`GeminiCommandProcessor`<br>`TTSManager` | • `android.speech.SpeechRecognizer`<br>• `android.speech.tts.TextToSpeech`<br>• Google Gemini NLU REST API | 3-Layer Voice Architecture (Passive Fuzzy Wake Word, Instant Offline Keyword Matching, Gemini NLU Fallback), Full intent routing (Navigasi, Kamera AI, Kenali Wajah, Live Lokasi), TTS Muting Feedback Prevention. |
 
 ---
 
 > **Kesimpulan:**  
-> **Orion Navigator** menggabungkan teknologi modern **Augmented Reality (ARCore)**, **Computer Vision (YOLOv8 + Gemini Vision)**, **Geospatial Tracking (OSMDroid + Firebase)**, dan **AI Speech/NLU** ke dalam satu arsitektur native Android yang aman, responsif, dan ramah tunanetra.
+> **Orion Navigator** merupakan ekosistem mobile komprehensif yang memadukan teknologi modern **Augmented Reality (ARCore)**, **Computer Vision & On-Device AI (YOLOv8, PyTorch ExecuTorch FaceNet, Dual-Scale FASNet Anti-Spoofing)**, **Embedded Vector Database (ObjectBox HNSW Index)**, **Geospatial Tracking (OSMDroid + Firebase)**, dan **AI Speech/NLU (3-Layer Voice Architecture + Gemini Vision & NLU)** ke dalam satu arsitektur native Android yang aman, berkinerja tinggi, dan ramah tunanetra.
