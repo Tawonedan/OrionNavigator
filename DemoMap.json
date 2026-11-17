@@ -1,0 +1,198 @@
+{
+  "buildingName": "Informatics Faculty Floor 2",
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Main Entrance Lobby",
+      "isDestination": true
+    },
+    {
+      "id": 2,
+      "name": "East Corridor Junction",
+      "isDestination": false
+    },
+    {
+      "id": 3,
+      "name": "Software Engineering Lab",
+      "isDestination": true
+    },
+    {
+      "id": 4,
+      "name": "South Corridor Junction",
+      "isDestination": false
+    },
+    {
+      "id": 5,
+      "name": "Server & Network Room",
+      "isDestination": true
+    },
+    {
+      "id": 6,
+      "name": "Restroom Area",
+      "isDestination": true
+    },
+    {
+      "id": 7,
+      "name": "West Corridor Junction",
+      "isDestination": false
+    },
+    {
+      "id": 8,
+      "name": "AI & Data Science Lab",
+      "isDestination": true
+    },
+    {
+      "id": 9,
+      "name": "Lecturer & Faculty Lounge",
+      "isDestination": true
+    },
+    {
+      "id": 10,
+      "name": "Main Auditorium",
+      "isDestination": true
+    }
+  ],
+  "edges": [
+    {
+      "from": 1,
+      "to": 2,
+      "steps": 14,
+      "degree": 90.0,
+      "gyro": 90.0
+    },
+    {
+      "from": 2,
+      "to": 1,
+      "steps": 14,
+      "degree": 270.0,
+      "gyro": 270.0
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "steps": 10,
+      "degree": 0.0,
+      "gyro": 0.0
+    },
+    {
+      "from": 3,
+      "to": 2,
+      "steps": 10,
+      "degree": 180.0,
+      "gyro": 180.0
+    },
+    {
+      "from": 2,
+      "to": 4,
+      "steps": 16,
+      "degree": 180.0,
+      "gyro": 180.0
+    },
+    {
+      "from": 4,
+      "to": 2,
+      "steps": 16,
+      "degree": 0.0,
+      "gyro": 0.0
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "steps": 8,
+      "degree": 90.0,
+      "gyro": 90.0
+    },
+    {
+      "from": 5,
+      "to": 4,
+      "steps": 8,
+      "degree": 270.0,
+      "gyro": 270.0
+    },
+    {
+      "from": 4,
+      "to": 6,
+      "steps": 6,
+      "degree": 180.0,
+      "gyro": 180.0
+    },
+    {
+      "from": 6,
+      "to": 4,
+      "steps": 6,
+      "degree": 0.0,
+      "gyro": 0.0
+    },
+    {
+      "from": 4,
+      "to": 7,
+      "steps": 14,
+      "degree": 270.0,
+      "gyro": 270.0
+    },
+    {
+      "from": 7,
+      "to": 4,
+      "steps": 14,
+      "degree": 90.0,
+      "gyro": 90.0
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "steps": 10,
+      "degree": 270.0,
+      "gyro": 270.0
+    },
+    {
+      "from": 8,
+      "to": 7,
+      "steps": 10,
+      "degree": 90.0,
+      "gyro": 90.0
+    },
+    {
+      "from": 7,
+      "to": 9,
+      "steps": 8,
+      "degree": 180.0,
+      "gyro": 180.0
+    },
+    {
+      "from": 9,
+      "to": 7,
+      "steps": 8,
+      "degree": 0.0,
+      "gyro": 0.0
+    },
+    {
+      "from": 7,
+      "to": 1,
+      "steps": 16,
+      "degree": 0.0,
+      "gyro": 0.0
+    },
+    {
+      "from": 1,
+      "to": 7,
+      "steps": 16,
+      "degree": 180.0,
+      "gyro": 180.0
+    },
+    {
+      "from": 1,
+      "to": 10,
+      "steps": 12,
+      "degree": 0.0,
+      "gyro": 0.0
+    },
+    {
+      "from": 10,
+      "to": 1,
+      "steps": 12,
+      "degree": 180.0,
+      "gyro": 180.0
+    }
+  ]
+}
+

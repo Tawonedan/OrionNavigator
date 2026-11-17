@@ -1,0 +1,66 @@
+{
+  "buildingName": "Gedung Rektorat Lantai 1",
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Lobby Utama",
+      "isDestination": true
+    },
+    {
+      "id": 2,
+      "name": "Pertigaan Koridor",
+      "isDestination": false
+    },
+    {
+      "id": 3,
+      "name": "Toilet",
+      "isDestination": true
+    }
+  ],
+  "edges": [
+    {
+      "from": 1,
+      "to": 2,
+      "steps": 12,
+      "degree": 90.0,
+      "gyro": 90.0,
+      "departureDegree": 90.0,
+      "departureGyro": 90.0,
+      "arrivalDegree": 90.0,
+      "arrivalGyro": 90.0
+    },
+    {
+      "from": 2,
+      "to": 1,
+      "steps": 12,
+      "degree": 270.0,
+      "gyro": 270.0,
+      "departureDegree": 270.0,
+      "departureGyro": 270.0,
+      "arrivalDegree": 270.0,
+      "arrivalGyro": 270.0
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "steps": 8,
+      "degree": 180.0,
+      "gyro": 180.0,
+      "departureDegree": 180.0,
+      "departureGyro": 180.0,
+      "arrivalDegree": 180.0,
+      "arrivalGyro": 180.0
+    },
+    {
+      "from": 3,
+      "to": 2,
+      "steps": 8,
+      "degree": 0.0,
+      "gyro": 0.0,
+      "departureDegree": 0.0,
+      "departureGyro": 0.0,
+      "arrivalDegree": 0.0,
+      "arrivalGyro": 0.0
+    }
+  ]
+}
